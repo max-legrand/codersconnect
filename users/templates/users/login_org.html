@@ -1,9 +1,13 @@
-<h1>Login</h1>
-<form class='site-form' action="{% url 'users:login_org' %}" method="post">
-    {{ form.as_p }}
-    {% csrf_token %}
-    {% if request.GET.next %}
-        <input type="hidden" name="next" value="{{request.GET.next}}">
-    {% endif %}
-    <input type="submit" value="Login">
-</form>
+{% extends 'base_layout.html' %} 
+{% block content %}
+
+    <h1>Login</h1>
+    <form class='site-form' action="{% url 'users:login_org' %}" method="post">
+        {{ form.as_p }}
+        {% csrf_token %}
+        {% if request.GET.next %}
+            <input type="hidden" name="next" value="{{request.GET.next}}">
+        {% endif %}
+        <input class="sub_button" type="submit" value="Login">
+    </form>
+{%endblock%}
