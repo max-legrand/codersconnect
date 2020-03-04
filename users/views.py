@@ -75,3 +75,61 @@ def signup_org(request):
         form = UserCreationForm()
         form2 = forms.CreateOrg()
     return render(request, "users/signup_org.html", {"form": form, "form2": form2})
+
+
+def update_info(request):
+    if request.method == "POST":
+        form = UserCreationForm(data=request.POST, instance=request.user)
+        try:
+            print("User")
+            print(form.errors)
+            extuser = request.user.extendeduser
+            # extuser.delete()
+            # request.user.delete()
+            form2 = forms.CreateExtendedUser(request.POST)
+            if form.is_valid() and form2.is_valid():
+                request.user.username = form.cleaned_data['username']
+                request.user.set_password(form.cleaned_data['password1'])
+                request.user.save()
+                extuser.firstname = form2.cleaned_data['firstname']
+                extuser.email = form2.cleaned_data['email']
+                extuser.lastname = form2.cleaned_data['lastname']
+                extuser.save()
+                print("Login")
+                login(request, request.user)
+                return redirect('home')
+            else:
+                return render(request, "users/update_info.html", {"form": form, "form2": form2})  
+
+        except Exception as e: # noqa
+            print("ORG")
+            print(form.errors)
+            orguser = request.user.organization
+            # orguser.delete()
+            # request.user.delete()
+            form2 = forms.CreateOrg(request.POST)
+            if form.is_valid() and form2.is_valid():
+                request.user.username = form.cleaned_data['username']
+                request.user.set_password(form.cleaned_data['password1'])
+                request.user.save()
+                orguser.firstname = form2.cleaned_data['firstname']
+                orguser.email = form2.cleaned_data['email']
+                orguser.lastname = form2.cleaned_data['lastname']
+                orguser.save()
+                login(request, request.user)
+                return redirect('home')
+            else:
+                print("INVALID")
+                # form = UserCreationForm(instance=request.user)
+                # form2 = forms.CreateOrg(instance=request.user.organization)
+                return render(request, "users/update_info.html", {"form": form, "form2": form2})
+    
+    else:
+        form = UserCreationForm(instance=request.user)
+        try:
+            extuser = request.user.extendeduser
+            form2 = forms.CreateExtendedUser(instance=extuser)
+        except Exception as e:  # noqa
+            orguser = request.user.organization # noqa
+            form2 = forms.CreateOrg(instance=orguser)
+        return render(request, "users/update_info.html", {"form": form, "form2": form2})

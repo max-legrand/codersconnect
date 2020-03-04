@@ -1,0 +1,20 @@
+{% extends 'base_layout.html' %} 
+{% block content %}
+
+{% if request.user.extendeduser %}
+<h1> Update User</h1>
+{% else %}
+<h1> Update Organization info</h1>
+{%endif%}
+
+<form class='site-form' action="{% url 'users:update_info' %}" method="post">
+    {{ form.as_p }}
+    <!-- {{ form.errors }} -->
+    <!-- {{ form.non_field_errors}} -->
+    {{ form2.as_p }}
+    {% csrf_token %}
+    <input class="sub_button" type="submit" value="Update">
+</form>
+
+
+{% endblock %}
