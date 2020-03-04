@@ -1,7 +1,6 @@
 {% extends 'base_layout.html' %} 
 {% block content %}
     <h1>User Signup</h1>
-    
     <form class='site-form' action="{% url 'users:signup_user' %}" method="post">
         {{ form.as_p }}
         {{ form2.as_p }}

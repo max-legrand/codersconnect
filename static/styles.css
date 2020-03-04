@@ -1,0 +1,31 @@
+.site-form{
+    margin-top: 10px;
+    /* border: solid #00db80; */
+    /* padding: 20px; */
+}
+
+.site-form input, .site-form textarea{
+    display: block;
+    margin: 5px 0 5px 0;
+    padding: 0 0px 0 0px;
+    width: 50%;
+}
+
+.site-form input[type="submit"]{
+    width: 10%;
+}
+.helptext, .site-form ul{
+    margin: 0 auto 20px;
+    padding-top: 10px;
+    color: rgb(77, 77, 77);
+    font-size: 0.9em;
+
+}
+
+.mybutton{
+    background: #89d4ff;
+}
+
+.sub_button{
+        border-radius: 5px;
+}
