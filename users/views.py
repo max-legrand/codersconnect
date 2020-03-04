@@ -77,6 +77,15 @@ def signup_org(request):
     return render(request, "users/signup_org.html", {"form": form, "form2": form2})
 
 
+def delete_user(request):
+    try:
+        request.user.extendeduser.delete()
+    except Exception as e: # noqa
+        request.user.organization.delete()
+    request.user.delete()
+    return redirect('home')
+
+
 def update_info(request):
     if request.method == "POST":
         form = UserCreationForm(data=request.POST, instance=request.user)

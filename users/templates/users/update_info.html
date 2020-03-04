@@ -16,5 +16,14 @@
     <input class="sub_button" type="submit" value="Update">
 </form>
 
+<form class="site-form" action="{% url 'users:delete_user' %}" method="post" onsubmit="return confirmation()">
+    {% csrf_token %}
+    <input class="sub_button" type="submit" value="Delete User">
+</form>
 
+<script>
+function confirmation(){
+    return confirm("Are you sure you want to delete your account?")
+}
+</script>
 {% endblock %}
