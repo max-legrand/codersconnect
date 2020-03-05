@@ -108,7 +108,7 @@ def update_info(request):
                 login(request, request.user)
                 return redirect('home')
             else:
-                return render(request, "users/update_info.html", {"form": form, "form2": form2})  
+                return render(request, "users/update_info.html", {"form": form, "form2": form2})
 
         except Exception as e: # noqa
             print("ORG")
@@ -132,7 +132,6 @@ def update_info(request):
                 # form = UserCreationForm(instance=request.user)
                 # form2 = forms.CreateOrg(instance=request.user.organization)
                 return render(request, "users/update_info.html", {"form": form, "form2": form2})
-    
     else:
         form = UserCreationForm(instance=request.user)
         try:
