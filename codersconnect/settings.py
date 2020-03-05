@@ -11,16 +11,19 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 
 import os
-
+import json
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
+# Open Config JSON and load it instead of using environmental variables
+CONFIG_FILE = open("config.json")
+CONFIG = json.load(CONFIG_FILE)
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.getenv("ccsecret")
+SECRET_KEY = CONFIG["ccsecret"]
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -86,9 +89,9 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'codersconnect',
-        'USER': os.getenv("ccdbuser"),
-        'PASSWORD': os.getenv("ccdbpass"),
-        'HOST': os.getenv("ccdb"),
+        'USER': CONFIG["ccdbuser"],
+        'PASSWORD': CONFIG["ccdbpass"],
+        'HOST': CONFIG["ccdb"],
         'PORT': '3306'
     }
 }

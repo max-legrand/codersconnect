@@ -19,8 +19,8 @@ class Migration(migrations.Migration):
             name='Connection',
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('accept_user', models.ForeignKey(default=None, on_delete='CASCADE', to='users.ExtendedUser')),
-                ('post', models.ForeignKey(default=None, on_delete='CASCADE', to='users.Postings')),
+                ('accept_user', models.ForeignKey(default=None, on_delete=models.CASCADE, to='users.ExtendedUser')),
+                ('post', models.ForeignKey(default=None, on_delete=models.CASCADE, to='users.Postings')),
             ],
         ),
     ]
