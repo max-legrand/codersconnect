@@ -18,7 +18,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # Open Config JSON and load it instead of using environmental variables
 CONFIG_FILE = open("config.json")
 CONFIG = json.load(CONFIG_FILE)
-
+CONFIG_FILE.close()
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
