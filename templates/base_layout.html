@@ -6,8 +6,9 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/js/bootstrap.min.js" integrity="sha384-a5N7Y/aK3qNeh15eJKGWxsqtnX/wWdSZSKp+81YjTmS15nvnvxKHuzaWwXHDli+4" crossorigin="anonymous"></script>
 
 <link rel="stylesheet" href="{% static 'styles.css' %}">
-<div class="container">
+<div class="container-fluid" style="padding-left: 0px; padding-right:0px;">
     <nav class="navbar navbar-light bg-light">
+        <div class="container">
         <a class="navbar-brand" href="/">
           <img src="https://via.placeholder.com/50" width="30" height="30" class="d-inline-block align-top" alt="">
           Coders Connect
@@ -56,9 +57,10 @@
               </li>
             {% endif %}
           </ul>
+        </div>
     </nav>
 </div>
-<div class="container">
+<div class="container-fluid" style="padding-left: 0px; padding-right:0px;">
     {% block content %}
     {% endblock %}
 </div>

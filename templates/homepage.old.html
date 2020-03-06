@@ -1,0 +1,73 @@
+{% extends 'base_layout.html' %} 
+{% block content %}
+
+    {% if user.is_authenticated%}
+    <!-- IF USER -->
+    {% if user.extendeduser %}
+    <h2>{{user.extendeduser.firstname}} {{user.extendeduser.lastname}}</h2>
+    <h2>{{user.extendeduser.email}}</h2>
+    <br>
+    
+    <!-- IF ORG -->
+    {% elif user.organization %}
+    <h2>{{user.organization.organization_name}}</h2>
+    <h2>{{user.organization.email}}</h2>
+    <a href="/posts/create_post"><button class="btn mybutton" > 
+        Create Post
+    </button>
+    </a>
+    <br/>
+    <br/>
+    {%else%}
+    <h2>{{user.username}}</h2>
+    {% endif %}
+    
+    <a href = "{%url 'users:update_info' %}">
+        <button class="btn mybutton" type="submit">Update info</button>
+    </a>
+    <br>
+
+    <br>
+    <form id = "logoutform" action="{% url 'users:logout_user' %}" method="post">
+        {% csrf_token %}
+        <!-- <a href="#" onclick="subform()">Logout</a> -->
+        <button class="btn mybutton" type="submit">Logout</button>
+    </form>
+    <br>
+    
+    
+    {%else%}
+    <br>
+    <a href="/users/signup_user"><button class="btn mybutton" > 
+        User Signup
+    </button>
+    </a>
+    <br>
+    
+    <br>
+    <a href="/users/signup_org"> <button class="btn mybutton" > 
+        Organization Signup
+        
+    </button>
+    </a>
+    <br>
+    <br>
+    <a href="/users/login_user"> <button class="btn mybutton" > 
+        Login
+        
+    </button>
+    </a>
+    {%endif%}
+    
+    <!-- <script>
+    
+    
+    function subform(){
+        document.getElementById("logoutform").submit();
+    }
+    
+    
+    </script> -->
+
+
+    {% endblock %}

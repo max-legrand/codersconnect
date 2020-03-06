@@ -1,77 +1,28 @@
-{% extends 'base_layout.html' %} 
+{% extends 'base_layout.html' %}
 {% block content %}
 
-    <h1>CodersConnect</h1>
+    <div id="container-fluid" style="background: url('/static/img/picture1.jpg') no-repeat center center /cover; height: 60%; margin: 0px;padding-left: 0px; padding-right:0px;">
+        <br />
+        <br />
+        <div class="container" style="background-color: rgb(255,255,255,0.1); width: 80%;">
+            <h1 style="text-align: center;opacity:1.0; font-size:5em; color:white">Coders Connect</h1>
+            
+        </div>
+        <br />
+        <br />
+        <form>
+            <center>
+            <div class="input-group mb-3" style="width:60%;">
+                <input type="text" class="form-control" placeholder="What kind of opportunity are you seeking?" aria-label="What kind of opportunity are you seeking?" aria-describedby="button-addon2">
+                <div class="input-group-append">
+                  <button class="btn btn-primary" type="button" id="button-addon2">Search</button>
+                </div>
+            </div>
+            </center>
+        </form>
+    </div>
+    <div id= "container" style="height: 50%">
 
+    </div>
 
-    
-    {% if user.is_authenticated%}
-    <!-- IF USER -->
-    {% if user.extendeduser %}
-    <h2>{{user.extendeduser.firstname}} {{user.extendeduser.lastname}}</h2>
-    <h2>{{user.extendeduser.email}}</h2>
-    <br>
-    
-    <!-- IF ORG -->
-    {% elif user.organization %}
-    <h2>{{user.organization.organization_name}}</h2>
-    <h2>{{user.organization.email}}</h2>
-    <a href="/posts/create_post"><button class="btn mybutton" > 
-        Create Post
-    </button>
-    </a>
-    <br/>
-    <br/>
-    {%else%}
-    <h2>{{user.username}}</h2>
-    {% endif %}
-    
-    <a href = "{%url 'users:update_info' %}">
-        <button class="btn mybutton" type="submit">Update info</button>
-    </a>
-    <br>
-
-    <br>
-    <form id = "logoutform" action="{% url 'users:logout_user' %}" method="post">
-        {% csrf_token %}
-        <!-- <a href="#" onclick="subform()">Logout</a> -->
-        <button class="btn mybutton" type="submit">Logout</button>
-    </form>
-    <br>
-    
-    
-    {%else%}
-    <br>
-    <a href="/users/signup_user"><button class="btn mybutton" > 
-        User Signup
-    </button>
-    </a>
-    <br>
-    
-    <br>
-    <a href="/users/signup_org"> <button class="btn mybutton" > 
-        Organization Signup
-        
-    </button>
-    </a>
-    <br>
-    <br>
-    <a href="/users/login_user"> <button class="btn mybutton" > 
-        Login
-        
-    </button>
-    </a>
-    {%endif%}
-    
-    <!-- <script>
-    
-    
-    function subform(){
-        document.getElementById("logoutform").submit();
-    }
-    
-    
-    </script> -->
-
-
-    {% endblock %}
+{% endblock %}
