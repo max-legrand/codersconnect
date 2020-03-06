@@ -20,6 +20,8 @@ def login_user(request):
     return render(request, "users/login_user.html", {"form": form})
 
 
+
+
 def signup_user(request):
     if request.method == "POST":
         form = UserCreationForm(request.POST)

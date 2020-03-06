@@ -13,25 +13,48 @@
           Coders Connect
         </a>
         <ul class="nav justify-content-end">
+            {% if user.is_authenticated %}
             <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Login</a>
+              <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Hi {% if user.extendeduser %}{{user.extendeduser.firstname}}{% elif user.organization %}{{user.organization.organization_name}}{% else %}{{user.username}}{% endif %},</a>
               <div class="dropdown-menu">
-                <a class="dropdown-item" href="/users/login_user/">User Login</a>
+                <a class="dropdown-item" href="#">My Account</a>
+                {% if user.extendeduser %}
                 <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="/users/login_org/">Organization Login</a>
+                <a class="dropdown-item" href="#">My Jobs</a>
+                {% elif user.organization %}
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="#">Create Listing</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="#">Manage Listings</a>
+                {% else %}
+                {% endif %}
+                <div class="dropdown-divider"></div>
+                <form id="UserLogout" action="/users/logout/" method="POST" style="display:none">
+                  {% csrf_token %}
+                </form>
+                <a class="dropdown-item" onclick="$('#UserLogout').submit(); return false;" style="cursor:pointer">Logout</a>
               </div>
             </li>
+            {% else %}
             <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Register</a>
+                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Login</a>
                 <div class="dropdown-menu">
-                  <a class="dropdown-item" href="/users/signup_user/">User Registration</a>
-                  <div class="dropdown-divider"></div>
-                  <a class="dropdown-item" href="/users/signup_org/">Organization Registration</a>
+                  <form style="padding:1em;" method="POST" action="/users/login_user/">
+                    {% csrf_token %}
+                    <div class="form-group">
+                      <label for="id_username">Username</label>
+                      <input type="username" class="form-control" name="username" id="username" aria-describedby="emailHelp">
+                    </div>
+                    <div class="form-group">
+                      <label for="id_password">Password</label>
+                      <input type="password" class="form-control" name="password" id="password">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <small id="emailHelp" class="form-text text-muted">Create a <a href="/users/signup_user/">User</a> or <a href="/users/signup_org">Organization</a> account.</small>
+                  </form>
                 </div>
               </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Link</a>
-            </li>
+            {% endif %}
           </ul>
     </nav>
 </div>
