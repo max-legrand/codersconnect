@@ -1,4 +1,6 @@
-{% extends 'base_layout.html' %} 
-{% block content %}
 <h1>Create post</h1>
-{% endblock %}
+<form class='site-form' action="{% url 'posts:create_post' %}" method="post">
+    {{ form.as_p }}
+    {% csrf_token %}
+    <input class="sub_button" type="submit" value="Create">
+</form>

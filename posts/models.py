@@ -4,8 +4,10 @@ from users import models as usermodels
 
 # Create your models here.
 class Postings(models.Model):
-    name = models.CharField(max_length=50)
+    title = models.CharField(max_length=50)
     description = models.TextField()
+    location = models.TextField(default="Remote")
+    techstack = models.TextField(default="N/A")
     organization = models.ForeignKey(usermodels.Organization, default=None, on_delete=models.CASCADE)
 
 
