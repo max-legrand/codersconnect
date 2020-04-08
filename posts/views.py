@@ -18,7 +18,7 @@ def delete_post(request):
         try:
             post = models.Postings.objects.get(id=request.POST["postnum"][0])
             post.delete()
-        except Exception as e:
+        except Exception:
             pass
         return redirect("/posts/manage_post")
 
@@ -28,7 +28,10 @@ def view_listings(request, location=None, techstack=None):
         pass
     else:
         posts = models.Postings.objects.all()
-    return render(request, "posts/view_all.html", {"posts":posts})
+    print(posts[0].techstack[0:15])
+    print(type(posts[0].techstack))
+    return render(request, "posts/view_all.html", {"posts": posts})
+
 
 def filter_list(request):
     if request.method == "POST":

@@ -5,6 +5,7 @@ verify_ssl = true
 
 [dev-packages]
 v = {editable = true,version = "*"}
+flake8 = "*"
 
 [packages]
 django = "*"

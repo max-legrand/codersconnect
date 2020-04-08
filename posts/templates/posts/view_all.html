@@ -14,8 +14,18 @@
 {% for post in posts %}
     <tr>
         <td>{{post.title}}</td>
-        <td>{{post.location}}</td>
-        <td>{{post.techstack}}</td>
+
+        {% if post.location|length > 15 %}
+            <td>{{post.location|slice:"0:15" }}...</td>
+        {%else %}
+            <td>{{post.location}}</td>
+        {% endif %}
+
+        {% if post.techstack|length > 15 %}
+            <td>{{post.techstack|slice:"0:15" }}...</td>
+        {%else %}
+            <td>{{post.techstack}}</td>
+        {% endif %}
         <td><a href="{% url 'posts:view_post' num=post.id %}">View</a></td>
         {%if request.user.extendeduser %}
         <td>
