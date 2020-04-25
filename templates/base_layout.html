@@ -1,66 +1,176 @@
-{% load static %}
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<!doctype html>
+<html lang="en">
+  <head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="non-profit, charity, programming, volunteer">
 
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css" integrity="sha384-Zug+QiDoJOrZ5t4lssLdxGhVrurbmBWopoEl+M6BdEfwnCJZtKxi1KgxUyJq13dy" crossorigin="anonymous">
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/js/bootstrap.min.js" integrity="sha384-a5N7Y/aK3qNeh15eJKGWxsqtnX/wWdSZSKp+81YjTmS15nvnvxKHuzaWwXHDli+4" crossorigin="anonymous"></script>
+  <meta name="author" content="Rutgers Honors Academy">
+      {% load static%}
+  <title>CodersConnect</title>
 
-<link rel="stylesheet" href="{% static 'styles.css' %}">
-<div class="container-fluid" style="padding-left: 0px; padding-right:0px;">
-    <nav class="navbar navbar-light bg-light">
-        <div class="container">
-        <a class="navbar-brand" href="/">
-          <img src="https://via.placeholder.com/50" width="30" height="30" class="d-inline-block align-top" alt="">
-          Coders Connect
-        </a>
-        <ul class="nav justify-content-end">
-            {% if user.is_authenticated %}
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Hi {% if user.extendeduser %}{{user.extendeduser.firstname}}{% elif user.organization %}{{user.organization.organization_name}}{% else %}{{user.username}}{% endif %},</a>
-              <div class="dropdown-menu">
-                <a class="dropdown-item" href="/users/update">My Account</a>
-                {% if user.extendeduser %}
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="#">My Jobs</a>
-                {% elif user.organization %}
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="/posts/create_post/">Create Listing</a>
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="/posts/manage_post/">Manage Listings</a>
-                {% else %}
-                {% endif %}
-                <div class="dropdown-divider"></div>
-                <form id="UserLogout" action="/users/logout/" method="POST" style="display:none">
+  <!-- bootstrap.min css -->
+  <link rel="stylesheet" href="{%static 'plugins/bootstrap/css/bootstrap.min.css'%}">
+  <!-- Icon Font Css -->
+  <link rel="stylesheet" href="{% static 'plugins/themify/css/themify-icons.css' %}">
+  <link rel="stylesheet" href="{% static 'plugins/fontawesome/css/all.css' %}">
+  <link rel="stylesheet" href="{% static 'plugins/magnific-popup/dist/magnific-popup.css' %}">
+  <!-- Owl Carousel CSS -->
+  <link rel="stylesheet" href="{% static 'plugins/slick-carousel/slick/slick.css' %}">
+  <link rel="stylesheet" href="{% static 'plugins/slick-carousel/slick/slick-theme.css' %}">
+
+  <!-- Main Stylesheet -->
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+</head>
+
+<body>
+
+<!-- Header Start -->
+<header class="navigation">
+  <nav class="navbar navbar-expand-lg  py-4" id="navbar">
+    <div class="container">
+      <a class="navbar-brand" href="{% url 'home' %}">
+        Coders<span>Connect</span>
+      </a>
+
+      <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarsExample09"
+        aria-controls="navbarsExample09" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="fa fa-bars"></span>
+      </button>
+
+      <div class="collapse navbar-collapse text-center" id="navbarsExample09">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="{% url 'home' %}">Home <span class="sr-only">(current)</span></a>
+		  </li>
+			<li class="nav-item active">
+            <a class="nav-link" href="listings.html">About <span class="sr-only">(current)</span></a>
+          </li>
+		  <li class="nav-item active">
+            <a class="nav-link" href="listings.html">Listings <span class="sr-only">(current)</span></a>
+          </li>
+			{% if user.is_authenticated %}
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="dropdown05" data-toggle="dropdown" aria-haspopup="true"
+              aria-expanded="false">Hi, {% if user.extendeduser %}{{user.extendeduser.firstname}}{% elif user.organization %}{{user.organization.organization_name}}{% else %}{{user.username}}{% endif %} <i class="fas fa-caret-down"></i>
+			</a>
+            <ul class="dropdown-menu" aria-labelledby="dropdown05">
+              <li><a class="dropdown-item" href="blog-grid.html">My Account</a></li>
+				{% if user.extendeduser %}
+              <li><a class="dropdown-item" href="blog-sidebar.html">My Jobs</a></li>
+				{% elif user.organization %}
+				<li><a class="dropdown-item" href="blog-sidebar.html">My Listings</a></li>
+				<li><a class="dropdown-item" href="blog-sidebar.html">My Connections</a></li>
+				{% else %}
+				{%endif%}
+				<form id="UserLogout" action="/users/logout/" method="POST" style="display:none">
                   {% csrf_token %}
                 </form>
-                <a class="dropdown-item" onclick="$('#UserLogout').submit(); return false;" style="cursor:pointer">Logout</a>
-              </div>
-            </li>
-            {% else %}
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Login</a>
-                <div class="dropdown-menu">
-                  <form style="padding:1em;" method="POST" action="/users/login_user/">
-                    {% csrf_token %}
-                    <div class="form-group">
-                      <label for="id_username">Username</label>
-                      <input type="username" class="form-control" name="username" id="username" aria-describedby="emailHelp">
-                    </div>
-                    <div class="form-group">
-                      <label for="id_password">Password</label>
-                      <input type="password" class="form-control" name="password" id="password">
-                    </div>
-                    <button type="submit" class="btn btn-primary">Submit</button>
-                    <small id="emailHelp" class="form-text text-muted">Create a <a href="/users/signup_user/">User</a> or <a href="/users/signup_org">Organization</a> account.</small>
-                  </form>
-                </div>
-              </li>
-            {% endif %}
+              <li><a class="dropdown-item" onclick="$('#UserLogout').submit(); return false;">Sign Out</a></li>
+            </ul>
+          </li>
+			{% else %}
+			<form class="form-lg-inline my-2 my-md-0 ml-lg-4 text-center">
+            <a href="{% url 'users:login_user' %}" class="btn btn-solid-border btn-round-full">Login</a>
+          </form>
+			{% endif %}
+        </ul>
+      </div>
+    </div>
+  </nav>
+</header>
+<!-- Header Close -->
+
+<!-- main wrapper start -->
+<div class="main-wrapper">
+
+{% block content %}
+	{% endblock %}
+
+<footer class="footer section" id="foot">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-3 col-md-6 col-sm-6">
+        <div class="widget">
+          <h4 class="text-capitalize mb-4">Info</h4>
+
+          <ul class="list-unstyled footer-menu lh-35">
+            <li><a href="#">Terms & Conditions</a></li>
+            <li><a href="#">Privacy Policy</a></li>
+            <li><a href="#">Support</a></li>
+            <li><a href="#">FAQ</a></li>
           </ul>
         </div>
-    </nav>
+      </div>
+      <div class="col-lg-2 col-md-6 col-sm-6">
+        <div class="widget">
+          <h4 class="text-capitalize mb-4">Quick Links</h4>
+
+          <ul class="list-unstyled footer-menu lh-35">
+            <li><a href="about.html">About</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="col-lg-3 ml-auto col-sm-6">
+        <div class="widget">
+          <div class="logo mb-4">
+            <h7>Coders<span>Connect</span></h7>
+          </div>
+          <h6><a href="mailto:ajc423@scarletmail.rutgers.edu">support@cc.org</a></h6>
+          <a href="#"><span class="text-color h4">+1-234-5678</span></a>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-btm pt-4">
+      <div class="row">
+        <div class="col-lg-6">
+          <div class="copyright">
+            &copy; Copyright Reserved to <span class="text-color">CodersConnect</span> by <a href="#"
+              target="_blank">D&D Group 10</a>
+          </div>
+        </div>
+        <div class="col-lg-6 text-left text-lg-right">
+          <ul class="list-inline footer-socials">
+            <li class="list-inline-item"><a href="https://www.facebook.com/jean.p.antoine"><i
+                  class="ti-facebook mr-2"></i>Facebook</a></li>
+            <li class="list-inline-item"><a href="https://twitter.com/elonmusk"><i
+                  class="ti-twitter mr-2"></i>Twitter</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
 </div>
-<div class="container-fluid" style="padding-left: 0px; padding-right:0px;">
-    {% block content %}
-    {% endblock %}
-</div>
+<!-- main wrapper end -->
+
+<!--
+    Essential Scripts
+    =====================================-->
+<!-- Main jQuery -->
+<script src="{% static 'plugins/jquery/jquery.js' %}"></script>
+<script src="{% static 'js/contact.js' %}"></script>
+<!-- Bootstrap 4.3.1 -->
+<script src="{% static 'plugins/bootstrap/js/popper.js' %}"></script>
+<script src="{% static 'plugins/bootstrap/js/bootstrap.min.js' %}"></script>
+<!--  Magnific Popup-->
+<script src="{% static 'plugins/magnific-popup/dist/jquery.magnific-popup.min.js' %}"></script>
+<!-- Slick Slider -->
+<script src="{% static 'plugins/slick-carousel/slick/slick.min.js' %}"></script>
+<!-- Counterup -->
+<script src="{% static 'plugins/counterup/jquery.waypoints.min.js' %}"></script>
+<script src="{% static 'plugins/counterup/jquery.counterup.min.js' %}"></script>
+
+
+
+<script src="{% static 'js/script.js' %}"></script>
+
+</body>
+
+</html>

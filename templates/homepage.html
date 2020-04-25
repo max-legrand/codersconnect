@@ -1,29 +1,162 @@
 {% extends 'base_layout.html' %}
 {% block content %}
 
-    <div id="container-fluid" style="background: url('/static/img/picture1.jpg') no-repeat center center /cover; height: 60%; margin: 0px;padding-left: 0px; padding-right:0px;">
-        <br />
-        <br />
-        <div class="container" style="background-color: rgb(255,255,255,0.1); width: 80%;">
-            <h1 style="text-align: center;opacity:1.0; font-size:5em; color:white">Coders Connect</h1>
-            
-        </div>
-        <br />
-        <br />
-        <form>
-            <center>
-            <div class="input-group mb-3" style="width:60%;">
-                <input type="text" class="form-control" placeholder="What kind of opportunity are you seeking?" aria-label="What kind of opportunity are you seeking?" aria-describedby="button-addon2">
-                <div class="input-group-append">
-                  <button class="btn btn-primary" type="button" id="button-addon2">Search</button>
-                </div>
-            </div>
-            </center>
-        </form>
-    </div>
-    <br>
-    <div id= "container" style="height: 50%">
-    <center><a href="{%url 'posts:view_listings' %}">VIEW ALL LISTINGS</a></center>
-    </div>
+<!-- Slider Start -->
+<section class="slider">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-9 col-md-10">
+				<div class="block">
+					<span class="d-block mb-3 text-white text-capitalize">Help the community</span>
+					<h1 class="animated fadeInUp mb-5">We connect <br>projects that matter <br>with people that care.</h1>
+					<a href="listings.html" target="_blank" class="btn btn-main animated fadeInUp btn-round-full">View Listings<i
+							class="btn-icon fa fa-angle-right ml-2"></i></a>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+<!-- Section Intro Start -->
+
+<section class="section intro">
+	<div class="container">
+		<div class="row ">
+			<div class="col-lg-8">
+				<div class="section-title">
+					<span class="h6 text-color ">We are coders, just like you!</span>
+					<h2 class="mt-3 content-title">We work with charities and <br> non-profits to find volunteer programming oppurtunities
+					</h2>
+				</div>
+				<a href="register.html" target="_blank" class="btn btn-main animated fadeInUp btn-round-full">Register<i
+					class="btn-icon fa fa-angle-right ml-2"></i></a>
+			</div>
+		</div>
+	</div>
+
+</section>
+
+<!-- Section Intro END -->
+<!-- Section About Start -->
+
+<section class="section about position-relative">
+	<div class="bg-about"></div>
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-6 offset-lg-6 offset-md-0">
+				<div class="about-item ">
+					<h2 class="mt-3 mb-4 position-relative content-title">If you are an organization that needs volunteer coders ... </h2>
+					<div class="about-content">
+						<h4 class="mb-3 position-relative">We are the solution</h4>
+						<p class="mb-5">Create a listing explaining your mission and what work you need done. <br> Once we get a passionate coder interested in your project, we will contact you!</p>
+
+						<a href="register.html" class="btn btn-main btn-round-full">Get started</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+<!-- Section About End -->
+<!-- section Counter Start -->
+<section class="section counter">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-3 col-md-6 col-sm-6">
+				<div class="counter-item text-center mb-5 mb-lg-0">
+					<h3 class="mb-0"><span class="counter-stat font-weight-bold">1730</span> +</h3>
+					<p class="text-muted">Project Done</p>
+				</div>
+			</div>
+			<div class="col-lg-3 col-md-6 col-sm-6">
+				<div class="counter-item text-center mb-5 mb-lg-0">
+					<h3 class="mb-0"><span class="counter-stat font-weight-bold">2 </span>M </h3>
+					<p class="text-muted">Users</p>
+				</div>
+			</div>
+			<div class="col-lg-3 col-md-6 col-sm-6">
+				<div class="counter-item text-center mb-5 mb-lg-0">
+					<h3 class="mb-0"><span class="counter-stat font-weight-bold">38</span></h3>
+					<p class="text-muted">Availble States</p>
+				</div>
+			</div>
+			<div class="col-lg-3 col-md-6 col-sm-6">
+				<div class="counter-item text-center">
+					<h3 class="mb-0"><span class="counter-stat font-weight-bold">153</span></h3>
+					<p class="text-muted">Partnered Organizations</p>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+<!-- section Counter End  -->
+
+<!-- Section Testimonial Start -->
+<section class="section testimonial">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-7 ">
+				<div class="section-title">
+					<span class="h6 text-color">Clients testimonial</span>
+					<h2 class="mt-3 content-title">Check what other users say about us</h2>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="container">
+		<div class="row testimonial-wrap">
+			<div class="testimonial-item position-relative">
+				<i class="ti-quote-left text-color"></i>
+
+				<div class="testimonial-item-content">
+					<p class="testimonial-text">This was a great oppurtunity for me to use my knowledge to better my community. I was paired with an organization that sought to help dogs get out of pounds. I have never had a more rewarding experience that I also helped me land a new job!</p>
+
+					<div class="testimonial-author">
+						<h5 class="mb-0 text-capitalize">Milos Seskar</h5>
+						<p>User</p>
+					</div>
+				</div>
+			</div>
+			<div class="testimonial-item position-relative">
+				<i class="ti-quote-left text-color"></i>
+
+				<div class="testimonial-item-content">
+					<p class="testimonial-text">CodersConnect gave me a great chance to make a difference from my house during the Covid-19 outbreak.</p>
+
+					<div class="testimonial-author">
+						<h5 class="mb-0 text-capitalize">Mark Stanik</h5>
+						<p>User</p>
+					</div>
+				</div>
+			</div>
+			<div class="testimonial-item position-relative">
+				<i class="ti-quote-left text-color"></i>
+
+				<div class="testimonial-item-content">
+					<p class="testimonial-text">We were really struggling to find people willing to help research Coronavirus treatments and cures. CodersConnect allowed us to spend our time researching while they dealt with getting new volunteers.</p>
+
+					<div class="testimonial-author">
+						<h5 class="mb-0 text-capitalize">Covaid-19</h5>
+						<p>Non-profit Organization</p>
+					</div>
+				</div>
+			</div>
+			<div class="testimonial-item position-relative">
+				<i class="ti-quote-left text-color"></i>
+
+				<div class="testimonial-item-content">
+					<p class="testimonial-text">CodersConnect really helped us find the right people to flesh out our new database. We are still in contact with those passionate programmers today!</p>
+
+					<div class="testimonial-author">
+						<h5 class="mb-0 text-capitalize">New Brunswick Blood Bank</h5>
+						<p>Organization</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
 
 {% endblock %}
+<!-- Section Testimonial End -->

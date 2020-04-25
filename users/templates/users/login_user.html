@@ -1,8 +1,8 @@
-{% extends 'base_layout.html' %} 
+{% extends 'base_layout.html' %}
 {% block content %}
-    
+<!--
     <h1>Login</h1>
-    <form class='site-form' action="{% url 'users:login_user' %}" method="post">
+    <form class='site-form' action="{% url 'users:login_org' %}" method="post">
         {{ form.as_p }}
         {% csrf_token %}
         {% if request.GET.next %}
@@ -10,4 +10,54 @@
         {% endif %}
         <input class="sub_button" type="submit" value="Login">
     </form>
-{% endblock %}
+-->
+<section class="page-title bg-1">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="block text-center">
+
+          <h1 class="text-capitalize mb-4 text-lg">Get connected.</h1>
+          <ul class="list-inline">
+            <li class="list-inline-item"><a href="login.html" class="text-white">Login</a></li>
+            <li class="list-inline-item"><span class="text-white">/</span></li>
+            <li class="list-inline-item"><a href="register.html" class="text-white-50">Register</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section style="padding: 100px 0;">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-8 mx-auto">
+				<div class="text-center p-5 shadow rounded">
+					<h2 class="mb-3"> <span class="text-color">Login</span> <br> <small> Reconnect with coders or organizations </small></h2>
+                    <form method="POST" action="{% url 'users:login_user' %}">
+                        {% csrf_token %}
+                        <div class="form-group text-left">
+                            <label for="id_username">Username</label>
+                            <input type="text" class="form-control" id="username" name="username">
+                        </div>
+                        <div class="form-group text-left">
+                            <label for="id_password">Password</label>
+                            <input type="password" class="form-control" id="password" name="password">
+                        </div>
+                        <div class="etc-login-form text-right">
+                            <small> <a href="https://xkcd.com/1093/">Forgot my password</a></small>
+
+                        </div>
+                        <button type="submit" class="btn btn-primary">Sign in</button>
+                        <div class="etc-login-form2">
+                            <p>New coder or organzation? <a href="register.html">Register</a></p>
+                        </div>
+                    </form>
+                    </div>
+
+			</div>
+		</div>
+	</div>
+</section>
+{%endblock%}
