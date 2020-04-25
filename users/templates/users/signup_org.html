@@ -9,9 +9,9 @@
 
           <h1 class="text-capitalize mb-4 text-lg">Get connected.</h1>
           <ul class="list-inline">
-            <li class="list-inline-item"><a href="login.html" class="text-white-50">Register</a></li>
+            <li class="list-inline-item"><a href="{% url 'users:login_user' %}" class="text-white-50">Login</a></li>
             <li class="list-inline-item"><span class="text-white">/</span></li>
-            <li class="list-inline-item"><a href="register.html" class="text-white">Organization</a></li>
+            <li class="list-inline-item"><a href="{% url 'users:signup_org' %}" class="text-white">Organization Registration</a></li>
           </ul>
         </div>
       </div>

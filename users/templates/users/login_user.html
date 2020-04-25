@@ -19,7 +19,7 @@
 
           <h1 class="text-capitalize mb-4 text-lg">Get connected.</h1>
           <ul class="list-inline">
-            <li class="list-inline-item"><a href="login.html" class="text-white">Login</a></li>
+            <li class="list-inline-item"><a href="{% url 'users:login_user' %}" class="text-white">Login</a></li>
           </ul>
         </div>
       </div>
@@ -55,7 +55,7 @@
                         {% endif %}
                         <button type="submit" class="btn btn-primary">Sign in</button>
                         <div class="etc-login-form2">
-                            <p style="margin-top:0.5em"><a href="{% url 'users:signup_user' %}">New Developer?</a> <a href="{% url 'users:signup_org' %}">New Organzation?</a></p>
+                            <p style="margin-top:0.5em"><a href="{% url 'users:signup_user' %}">New Developer?</a> <a href="{% url 'users:signup_org' %}">New Organization?</a></p>
                         </div>
                     </form>
                     </div>

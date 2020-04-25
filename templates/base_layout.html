@@ -57,7 +57,7 @@
               aria-expanded="false">Hi, {% if user.extendeduser %}{{user.extendeduser.firstname}}{% elif user.organization %}{{user.organization.organization_name}}{% else %}{{user.username}}{% endif %} <i class="fas fa-caret-down"></i>
 			</a>
             <ul class="dropdown-menu" aria-labelledby="dropdown05">
-              <li><a class="dropdown-item" href="blog-grid.html">My Account</a></li>
+              <li><a class="dropdown-item" href="{% url 'users:update_info' %}">My Account</a></li>
 				{% if user.extendeduser %}
               <li><a class="dropdown-item" href="blog-sidebar.html">My Jobs</a></li>
 				{% elif user.organization %}

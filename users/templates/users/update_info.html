@@ -1,29 +1,72 @@
-{% extends 'base_layout.html' %} 
+{% extends 'base_layout.html' %}
 {% block content %}
+{% load custom_tags %}
+<section class="page-title bg-1">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="block text-center">
 
-{% if request.user.extendeduser %}
-<h1> Update User</h1>
-{% else %}
-<h1> Update Organization info</h1>
-{%endif%}
+          <h1 class="text-capitalize mb-4 text-lg">My Account</h1>
+          <ul class="list-inline">
+            <li class="list-inline-item"><a href="{% url 'users:update_info' %}" class="text-white-50">My Account</a></li>
+            <li class="list-inline-item"><span class="text-white">/</span></li>
+            <li class="list-inline-item"><a href="{% url 'users:delete_user' %}" class="text-white">Delete Account</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
-<form class='site-form' action="{% url 'users:update_info' %}" method="post">
-    {{ form.as_p }}
-    <!-- {{ form.errors }} -->
-    <!-- {{ form.non_field_errors}} -->
-    {{ form2.as_p }}
-    {% csrf_token %}
-    <input class="sub_button" type="submit" value="Update">
-</form>
+<section style="padding: 100px 0;">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-8 mx-auto">
+				<div class="text-center p-5 shadow rounded">
+					<h2 class="mb-3"> <span class="text-color">My Account</span> <br> <small> Update Your Account Information </small></h2>
+    <form class='site-form' action="{% url 'users:update_info' %}" method="post">
+        {% for field1 in form %}
+    <div class="form-group text-left">
+        {{ field1.label_tag }} {{ field1 |add_classes:'form-control' }}
+        {% if field1.help_text %}
+                    <small class="form-text text-muted">{{ field1.help_text }}</small>
+                {% endif %}
+    </div>
+{% endfor %}
+        {% for field in form2 %}
+    <div class="form-group text-left">
+        {{ field.label_tag }} {{ field }}
+    </div>
+{% endfor %}
+        {% csrf_token %}
+                        {% if form.errors or form2.errors %}
+                            <div class="alert alert-danger" role="alert">
 
-<form class="site-form" action="{% url 'users:delete_user' %}" method="post" onsubmit="return confirmation()">
-    {% csrf_token %}
-    <input class="sub_button" type="submit" value="Delete User">
-</form>
+                              <ul style="list-style-type: none;padding-left:0;">
+                                  <li></li>
+                                {% for field in form %}
+                                {% for error in field.errors %}
+                                  <li>{{error|escape}}</li>
+                                {% endfor %}
+                            {% endfor %}
+                                {% for field in form2 %}
+                                {% for error in field.errors %}
+                                  <li>{{error|escape}}</li>>
+                                {% endfor %}
+                            {% endfor %}
+                              </ul>
+                            </div>
+                        {% endif %}
+                        <button type="submit" class="btn btn-primary">Update</button>
+                        <div class="etc-login-form2">
+                            <p style="margin-top:0.5em">Want to delete your account? <a href="{% url 'users:delete_user' %}">Click Here</a></p>
+                        </div>
+                    </form>
+                    </div>
 
-<script>
-function confirmation(){
-    return confirm("Are you sure you want to delete your account?")
-}
-</script>
-{% endblock %}
+			</div>
+		</div>
+	</div>
+</section>
+{%endblock%}
