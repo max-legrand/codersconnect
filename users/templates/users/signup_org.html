@@ -1,14 +1,72 @@
-{% extends 'base_layout.html' %} 
+{% extends 'base_layout.html' %}
 {% block content %}
-    <h1>Organization Signup</h1>
-    
+{% load custom_tags %}
+<section class="page-title bg-1">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="block text-center">
+
+          <h1 class="text-capitalize mb-4 text-lg">Get connected.</h1>
+          <ul class="list-inline">
+            <li class="list-inline-item"><a href="login.html" class="text-white-50">Register</a></li>
+            <li class="list-inline-item"><span class="text-white">/</span></li>
+            <li class="list-inline-item"><a href="register.html" class="text-white">Organization</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section style="padding: 100px 0;">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-8 mx-auto">
+				<div class="text-center p-5 shadow rounded">
+					<h2 class="mb-3"> <span class="text-color">Register</span> <br> <small> Connect with developers </small></h2>
     <form class='site-form' action="{% url 'users:signup_org' %}" method="post">
-        {{ form.as_p }}
-        {{ form2.as_p }}
+        {% for field1 in form %}
+    <div class="form-group text-left">
+        {{ field1.label_tag }} {{ field1 |add_classes:'form-control' }}
+        {% if field1.help_text %}
+                    <small class="form-text text-muted">{{ field1.help_text }}</small>
+                {% endif %}
+    </div>
+{% endfor %}
+        {% for field in form2 %}
+    <div class="form-group text-left">
+        {{ field.label_tag }} {{ field }}
+    </div>
+{% endfor %}
         {% csrf_token %}
-        <input class="sub_button" type="submit" value="Signup">
-    </form>
+                        {% if form.errors or form2.errors %}
+                            <div class="alert alert-danger" role="alert">
 
-</div>
+                              <ul style="list-style-type: none;padding-left:0;">
+                                  <li></li>
+                                {% for field in form %}
+                                {% for error in field.errors %}
+                                  <li>{{error|escape}}</li>
+                                {% endfor %}
+                            {% endfor %}
+                                {% for field in form2 %}
+                                {% for error in field.errors %}
+                                  <li>{{error|escape}}</li>>
+                                {% endfor %}
+                            {% endfor %}
+                              </ul>
+                            </div>
+                        {% endif %}
+                        <button type="submit" class="btn btn-primary">Register</button>
+                        <div class="etc-login-form2">
+                            <p style="margin-top:0.5em">Already have an account? <a href="{% url 'users:login_user' %}">Login</a></p>
+                        </div>
+                    </form>
+                    </div>
 
+			</div>
+		</div>
+	</div>
+</section>
 {%endblock%}
