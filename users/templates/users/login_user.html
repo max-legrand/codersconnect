@@ -20,8 +20,6 @@
           <h1 class="text-capitalize mb-4 text-lg">Get connected.</h1>
           <ul class="list-inline">
             <li class="list-inline-item"><a href="login.html" class="text-white">Login</a></li>
-            <li class="list-inline-item"><span class="text-white">/</span></li>
-            <li class="list-inline-item"><a href="register.html" class="text-white-50">Register</a></li>
           </ul>
         </div>
       </div>
@@ -34,7 +32,7 @@
 		<div class="row">
 			<div class="col-md-8 mx-auto">
 				<div class="text-center p-5 shadow rounded">
-					<h2 class="mb-3"> <span class="text-color">Login</span> <br> <small> Reconnect with coders or organizations </small></h2>
+					<h2 class="mb-3"> <span class="text-color">Login</span> <br> <small> Reconnect with developers or organizations </small></h2>
                     <form method="POST" action="{% url 'users:login_user' %}">
                         {% csrf_token %}
 
