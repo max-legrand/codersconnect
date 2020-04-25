@@ -37,6 +37,7 @@
 					<h2 class="mb-3"> <span class="text-color">Login</span> <br> <small> Reconnect with coders or organizations </small></h2>
                     <form method="POST" action="{% url 'users:login_user' %}">
                         {% csrf_token %}
+
                         <div class="form-group text-left">
                             <label for="id_username">Username</label>
                             <input type="text" class="form-control" id="username" name="username">
@@ -49,6 +50,11 @@
                             <small> <a href="https://xkcd.com/1093/">Forgot my password</a></small>
 
                         </div>
+                        {% if form.errors %}
+                            <div class="alert alert-danger" role="alert">
+                              Your username and/or password didn't match. Please try again.
+                            </div>
+                        {% endif %}
                         <button type="submit" class="btn btn-primary">Sign in</button>
                         <div class="etc-login-form2">
                             <p>New coder or organzation? <a href="register.html">Register</a></p>
