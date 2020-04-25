@@ -18,15 +18,15 @@
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Hi {% if user.extendeduser %}{{user.extendeduser.firstname}}{% elif user.organization %}{{user.organization.organization_name}}{% else %}{{user.username}}{% endif %},</a>
               <div class="dropdown-menu">
-                <a class="dropdown-item" href="#">My Account</a>
+                <a class="dropdown-item" href="/users/update">My Account</a>
                 {% if user.extendeduser %}
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="#">My Jobs</a>
                 {% elif user.organization %}
                 <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="#">Create Listing</a>
+                <a class="dropdown-item" href="/posts/create_post/">Create Listing</a>
                 <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="#">Manage Listings</a>
+                <a class="dropdown-item" href="/posts/manage_post/">Manage Listings</a>
                 {% else %}
                 {% endif %}
                 <div class="dropdown-divider"></div>

@@ -1,0 +1,49 @@
+<h1>view listings</h1>
+<table>
+<tr>
+<th>Post title</th>
+<th>Location</th>
+<th>Tech Stack</th>
+<th>View</th>
+{%if request.user.extendeduser %}
+<th>
+    Connect
+</th>
+{%endif%}
+</tr>
+{% for post in posts %}
+    <tr>
+        <td>{{post.title}}</td>
+
+        {% if post.location|length > 15 %}
+            <td>{{post.location|slice:"0:15" }}...</td>
+        {%else %}
+            <td>{{post.location}}</td>
+        {% endif %}
+
+        {% if post.techstack|length > 15 %}
+            <td>{{post.techstack|slice:"0:15" }}...</td>
+        {%else %}
+            <td>{{post.techstack}}</td>
+        {% endif %}
+        <td><a href="{% url 'posts:view_post' num=post.id %}">View</a></td>
+        {%if request.user.extendeduser %}
+        <td>
+            Connect
+        </td>
+        {%endif%}
+
+    </tr>
+{% endfor %}
+
+</table>
+<br>
+<form class='site-form' action="{% url 'posts:filter_list'%}" method="post">
+    <input type="text" name="location" placeholder="Filter location">
+    <input type="text" name="techstack" placeholder="Filter techstack">
+    {% csrf_token %}
+    <input class="sub_button" type="submit" value="Search">
+</form>
+
+<br>
+<a href="{% url 'home' %}">Go Back</a>

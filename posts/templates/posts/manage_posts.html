@@ -1,0 +1,21 @@
+<h1>Manage Posts</h1>
+<table>
+<tr>
+<th>Post title</th>
+<th>Location</th>
+<th>Tech Stack</th>
+<th>Edit</th>
+</tr>
+{% for post in entries %}
+    <tr>
+        <td>{{post.title}}</td>
+        <td>{{post.location}}</td>
+        <td>{{post.techstack}}</td>
+        <td><a href="{%url 'posts:edit_post' num=post.id %}">Edit</a></td>
+
+    </tr>
+{% endfor %}
+
+</table>
+
+<a href="{% url 'home' %}">Go Back</a>
