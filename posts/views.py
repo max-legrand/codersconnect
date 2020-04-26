@@ -1,5 +1,5 @@
 from django.shortcuts import redirect, render
-from .decorators import is_org
+from .decorators import is_org, is_user
 from . import forms
 from . import models
 from users import models as usermodel
@@ -16,7 +16,7 @@ def delete_post(request):
     if request.method == "POST":
         print(request.POST)
         try:
-            post = models.Postings.objects.get(id=request.POST["postnum"][0])
+            post = models.Postings.objects.get(id=request.POST["postnum"])
             post.delete()
         except Exception:
             pass
@@ -58,7 +58,7 @@ def view_post(request, num):
     else:
         post = models.Postings.objects.get(id=num)
         contact = usermodel.Organization.objects.get(id=post.organization_id)
-    return render(request, "posts/view_post.html", {"post":post, "contact": contact})
+    return render(request, "posts/view_post.html", {"post":post, "contact": contact, "skillslist": post.techstack.split(', ')})
 
 @is_org
 def edit_post(request, num):
@@ -110,6 +110,7 @@ def create_post(request):
             post = form.save(commit=False)
             print(post.title)
             user = request.user.organization
+            post.techstack = post.techstack.replace("'", "").replace("[","").replace("]","")
             print(request.user.username)
             print(request.user.organization.organization_name)
             post.organization = user
@@ -129,3 +130,30 @@ def create_post(request):
     else:
         form = forms.CreatePost()
     return render(request, "posts/create_post.html", {"form": form})
+
+@is_user
+def apply(request):
+    if request.method == "POST":
+        try:
+            num = int(request.POST['num'])
+            post = models.Postings.objects.get(id=num)
+            cnct = models.Connection(post=post, accept_user=request.user.extendeduser, status=0)
+            cnct.save()
+        except Exception as e:
+            print(e)
+            pass
+        pass
+    else:
+        pass
+    return render(request, '/home')
+
+@is_user
+def view_jobs(request):
+    if request.method == "GET":
+        user = request.user
+        jobs = models.Connection.objects.all().filter(accept_user=user.extendeduser)
+        #filterd_list = jobs.filter(user__exact=user.extendeduser)
+    else:
+        return redirect('/home')
+        pass
+    return render(request, 'posts/view_jobs.html', {"user": user, "jobs": jobs})

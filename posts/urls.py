@@ -9,5 +9,7 @@ urlpatterns = [
     path('edit_post/num=<int:num>', views.edit_post, name="edit_post"),
     path('view_listings/', views.view_listings, name="view_listings"),
     path('view_post/num=<int:num>', views.view_post, name="view_post"),
-    path('filter_list', views.filter_list, name="filter_list")
+    path('filter_list', views.filter_list, name="filter_list"),
+    path('apply', views.apply, name="apply"),
+    path('view_jobs', views.view_jobs, name="view_jobs")
 ]

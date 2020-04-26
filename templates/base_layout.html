@@ -61,7 +61,7 @@
 				{% if user.extendeduser %}
               <li><a class="dropdown-item" href="blog-sidebar.html">My Jobs</a></li>
 				{% elif user.organization %}
-				<li><a class="dropdown-item" href="blog-sidebar.html">My Listings</a></li>
+				<li><a class="dropdown-item" href="{% url 'posts:manage_post' %}">My Listings</a></li>
 				<li><a class="dropdown-item" href="blog-sidebar.html">My Connections</a></li>
 				{% else %}
 				{%endif%}

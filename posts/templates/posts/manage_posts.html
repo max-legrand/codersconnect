@@ -1,21 +1,84 @@
-<h1>Manage Posts</h1>
-<table>
-<tr>
-<th>Post title</th>
-<th>Location</th>
-<th>Tech Stack</th>
-<th>Edit</th>
-</tr>
-{% for post in entries %}
-    <tr>
-        <td>{{post.title}}</td>
-        <td>{{post.location}}</td>
-        <td>{{post.techstack}}</td>
-        <td><a href="{%url 'posts:edit_post' num=post.id %}">Edit</a></td>
+{% extends 'base_layout.html' %}
+{% block content %}
+{% load custom_tags %}
+<!-- section listings start -->
+<section class="page-title bg-1">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="block text-center">
+          <h1 class="text-capitalize mb-4 text-lg">Postings</h1>
+          <span class="text-white-50">Manage your organizations postings for projects, view applicants for each project, and create new postings!</span>
+        </div>
+      </div>
+    </div>
+  </div>
 
-    </tr>
-{% endfor %}
 
-</table>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12 sloptop">
+          <div class="block text-center">
+            <a href="{% url 'posts:create_post' %}"><button style="border:0; font-spacing: 1em;" class="btn-filter btn-main btn-round-full"><i class="fas fa-plus"></i> Create new project</button></a>
+          </div>
+        </div>
+      </div>
+    </div>
 
-<a href="{% url 'home' %}">Go Back</a>
+
+
+
+
+</section>
+
+
+
+
+
+<!-- section listings start -->
+<section class="listing-search bg-gray">
+
+  <div class="container">
+    <!--Start listing card-->
+      {% for post in entries %}
+    <div class="card listing-card">
+        <div class="card-header"><h5>{{post.title}} <div style="float:right;"> Status: {% if post.status %}<font color="green">Open{% else %}<font color="red">Closed{% endif %}</font> </h5></div>
+          <div class="card-body">
+              <div class="row">
+                  <div class="col-md-2">
+                    <img src="https://via.placeholder.com/150" class="listing-thumbnail"/>
+                  </div>
+                  <div class="col-md-3">
+                    <ul class="listing-list">
+                      <li class="listing-listitem"><i class="icon-red far fa-calendar-alt"></i> {{post.timestamp}}</li>
+                        {% if post.techstack|length > 30 %}
+                        <li class="listing-listitem"><i class="icon-red fas fa-tags"></i> {{post.techstack|slice:"0:30" }}...</li>
+                        {% else %}
+                            <li class="listing-listitem"><i class="icon-red fas fa-tags"></i> {{post.techstack}}</li>
+                        {% endif %}
+                      <li class="listing-listitem"><i class="icon-red fas fa-map-marker-alt"></i> {{post.location}}</li>
+                      <li class="listing-listitem"><i class="icon-blue fas fa-user-circle"></i> Applicants: {{post.applicants}}</li>
+                    </ul>
+                  </div>
+                  <div class="col-md-7">{{post.description}}</div>
+              </div>
+              <div class="post-act">
+                  <form method="GET" action="{% url 'posts:edit_post' num=post.id %}">
+                   <button type="submit" class="btn btn-outline-secondary btn-smallgray btn-space" style="float:left;"> <i class="fas fa-edit"></i> Edit</button>
+                  </form>
+                      <form method="POST" action="{% url 'posts:delete_post' %}">
+                      {% csrf_token %}
+                      <input type="hidden" name="postnum" value="{{post.id}}">
+                      <button type="submit" class="btn btn-outline-danger btn-small" style="float:left;"> <i class="fas fa-times"></i> Remove</button>
+                  </form>
+                  <button type="button" class="btn btn-primary" style="float:right;" ><a href="applicants.html"><font color="white">View Applicants</font></a></button>
+             </div>
+          </div>
+        </div>
+    {% endfor %}
+
+
+  </div>
+
+</section>
+{% endblock %}

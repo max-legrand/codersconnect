@@ -10,8 +10,11 @@ class Postings(models.Model):
     techstack = models.TextField(default="N/A")
     organization = models.ForeignKey(usermodels.Organization, default=None, on_delete=models.CASCADE)
     timestamp = models.DateField(default=date.today)
+    status = models.BooleanField(default=True) # T == active F == closed
+    applicants = models.IntegerField(default=0)
 
 
 class Connection(models.Model):
     post = models.ForeignKey(Postings, default=None, on_delete=models.CASCADE)
     accept_user = models.ForeignKey(usermodels.ExtendedUser, default=None, on_delete=models.CASCADE)
+    status = models.IntegerField(default=0)

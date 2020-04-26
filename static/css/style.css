@@ -120,7 +120,7 @@ input[type="email"]:focus, input[type="password"]:focus, input[type="text"]:focu
   box-shadow: none;
 }
 
-.btn-main, .btn-transparent, .btn-small {
+.btn-main, .btn-transparent {
   background: #f75757;
   color: #fff;
   -webkit-transition: all 0.2s ease;
@@ -131,18 +131,38 @@ input[type="email"]:focus, input[type="password"]:focus, input[type="text"]:focu
   background: #dd0b0b;
   color: #fff;
 }
+.btn-smallgray{
+    padding: 10px 25px;
+    font-size: 12px;
+    height: auto;
+}
+.btn-smallgray:hover{
+    padding: 10px 25px;
+    font-size: 12px;
+    height: auto;
+    background: #808080;
+    color: #fff;
+}
 
 .btn-solid-border {
   border: 2px solid #f75757;
   background: transparent;
   color: #242424;
 }
+.sloptop {
+    margin-top:40px
+}
+.butt {
+    margin-bottom: 5px;
+}
 
 .btn-solid-border:hover {
   border: 2px solid #f75757;
   background: #f75757;
 }
-
+.btn-space {
+    margin-right: 5px;
+}
 .btn-transparent {
   background: transparent;
   padding: 0;
@@ -1485,6 +1505,10 @@ h3.quote::before {
 
 .icon-red {
   color: #f75757;
+}
+
+.icon-blue {
+    color: #2b8fe0
 }
 
 .listing-card {

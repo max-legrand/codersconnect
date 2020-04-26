@@ -1,0 +1,118 @@
+{% extends 'base_layout.html' %}
+{% block content %}
+{% load custom_tags %}
+<div class="main-wrapper">
+
+<section class="page-title bg-1">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="block text-center">
+          <h1 class="text-capitalize mb-4 text-lg">My Jobs</h1>
+          <span class="text-color">View the status of your applications for different projects!</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+
+<!-- section listings start -->
+<section class="listing-search bg-gray">
+
+  <div class="container">
+    <!--Start listing card-->
+      {% for job in jobs %}
+      {% if job.status == 1 %}
+    <div class="card listing-card">
+        <div class="card-header"><h5>{{job.post.title}} <div style="float:right;"> Status: <font color="red">Denied</font> </h5></div>
+          <div class="card-body">
+              <div class="row">
+                  <div class="col-md-2">
+                    <img src="https://via.placeholder.com/150" class="listing-thumbnail"/>
+                  </div>
+                  <div class="col-md-3">
+                    <ul class="listing-list">
+                      <li class="listing-listitem"><i class="icon-red far fa-calendar-alt"></i> {{job.post.timestamp}}</li>
+                        {% if job.post.techstack|length > 30 %}
+                        <li class="listing-listitem"><i class="icon-red fas fa-tags"></i> {{job.post.techstack|slice:"0:30" }}...</li>
+                        {% else %}
+                            <li class="listing-listitem"><i class="icon-red fas fa-tags"></i> {{job.post.techstack}}</li>
+                        {% endif %}
+
+                      <li class="listing-listitem"><i class="icon-red fas fa-map-marker-alt"></i> {{job.post.location}}</li>
+                    </ul>
+                  </div>
+                  <div class="col-md-7">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ac enim lorem. Cras congue lacinia nunc. Aliquam erat volutpat. Cras lacinia orci quis magna dignissim consequat. Donec sit amet neque posuere diam elementum facilisis. Vivamus eget et.</div>
+              </div>
+              <div class="del-app" style="float:right;">
+                   <button type="button" class="btn btn-outline-danger"> <i class="fas fa-times"></i> Remove</button>
+             </div>
+          </div>
+        </div>
+      {% elif job.status == 2 %}
+
+    <!--Start listing card-->
+    <div class="card listing-card">
+        <div class="card-header"><h5>{{job.post.title}} <div style="float:right;"> Status: <font color="green">Accepted</font> </h5></div>
+          <div class="card-body">
+              <div class="row">
+                  <div class="col-md-2">
+                    <img src="https://via.placeholder.com/150" class="listing-thumbnail"/>
+                  </div>
+                  <div class="col-md-3">
+                    <ul class="listing-list">
+                      <li class="listing-listitem"><i class="icon-red far fa-calendar-alt"></i> {{job.post.timestamp}}</li>
+                        {% if job.post.techstack|length > 30 %}
+                        <li class="listing-listitem"><i class="icon-red fas fa-tags"></i> {{job.post.techstack|slice:"0:30" }}...</li>
+                        {% else %}
+                            <li class="listing-listitem"><i class="icon-red fas fa-tags"></i> {{job.post.techstack}}</li>
+                        {% endif %}
+
+                      <li class="listing-listitem"><i class="icon-red fas fa-map-marker-alt"></i> {{job.post.location}}</li>
+                    </ul>
+                  </div>
+                  <div class="col-md-7">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ac enim lorem. Cras congue lacinia nunc. Aliquam erat volutpat. Cras lacinia orci quis magna dignissim consequat. Donec sit amet neque posuere diam elementum facilisis. Vivamus eget et.</div>
+              </div>
+              <div class="app-actions" style="float:right;">
+                   <button type="button" class="btn btn-outline-success"> <i class="fas fa-check"></i> Accept</button>
+                   <button type="button" class="btn btn-outline-danger"> <i class="fas fa-times"></i> Decline</button>
+             </div>
+          </div>
+        </div>
+      {% else %}
+        <div class="card listing-card">
+            <div class="card-header"><h5>{{job.post.title}} <div style="float:right;"> Status: <font color="orange">Pending</font> </h5></div>
+              <div class="card-body">
+                  <div class="row">
+                      <div class="col-md-2">
+                        <img src="https://via.placeholder.com/150" class="listing-thumbnail"/>
+                      </div>
+                      <div class="col-md-3">
+                        <ul class="listing-list">
+                          <li class="listing-listitem"><i class="icon-red far fa-calendar-alt"></i> {{job.post.timestamp}}</li>
+                        {% if job.post.techstack|length > 30 %}
+                        <li class="listing-listitem"><i class="icon-red fas fa-tags"></i> {{job.post.techstack|slice:"0:30" }}...</li>
+                        {% else %}
+                            <li class="listing-listitem"><i class="icon-red fas fa-tags"></i> {{job.post.techstack}}</li>
+                        {% endif %}
+
+                      <li class="listing-listitem"><i class="icon-red fas fa-map-marker-alt"></i> {{job.post.location}}</li>
+                        </ul>
+                      </div>
+                      <div class="col-md-7">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ac enim lorem. Cras congue lacinia nunc. Aliquam erat volutpat. Cras lacinia orci quis magna dignissim consequat. Donec sit amet neque posuere diam elementum facilisis. Vivamus eget et.</div>
+                  </div>
+                  <div class="withdrawl" style="float:right;">
+                       <button type="button" class="btn btn-outline-secondary"> Withdraw application</button>
+
+                 </div>
+              </div>
+            </div>
+        {% endif %}
+    {% endfor %}
+  </div>
+
+</section>
+{% endblock %}

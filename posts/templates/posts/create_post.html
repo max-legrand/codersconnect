@@ -1,6 +1,59 @@
-<h1>Create post</h1>
-<form class='site-form' action="{% url 'posts:create_post' %}" method="post">
-    {{ form.as_p }}
-    {% csrf_token %}
-    <input class="sub_button" type="submit" value="Create">
-</form>
+{% extends 'base_layout.html' %}
+{% block content %}
+{% load custom_tags %}
+<section class="page-title bg-1">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="block text-center">
+
+          <h1 class="text-capitalize mb-4 text-lg">Source talent.</h1>
+          <ul class="list-inline">
+            <li class="list-inline-item"><a href="{% url 'posts:create_post' %}" class="text-white-50">Create</a></li>
+            <li class="list-inline-item"><span class="text-white">/</span></li>
+            <li class="list-inline-item"><a href="{% url 'posts:create_post' %}" class="text-white">Listing</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section style="padding: 100px 0;">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-8 mx-auto">
+				<div class="text-center p-5 shadow rounded">
+					<h2 class="mb-3"> <span class="text-color">Create Listing</span> <br> <small> Crowdsource your opportunity </small></h2>
+    <form class='site-form' action="{% url 'posts:create_post' %}" method="post">
+        {% for field1 in form %}
+    <div class="form-group text-left">
+        {{ field1.label_tag }} {{ field1 |add_classes:'form-control' }}
+        {% if field1.help_text %}
+                    <small class="form-text text-muted">{{ field1.help_text }}</small>
+                {% endif %}
+    </div>
+{% endfor %}
+        {% csrf_token %}
+                        {% if form.errors %}
+                            <div class="alert alert-danger" role="alert">
+
+                              <ul style="list-style-type: none;padding-left:0;">
+                                  <li></li>
+                                {% for field in form %}
+                                {% for error in field.errors %}
+                                  <li>{{error|escape}}</li>
+                                {% endfor %}
+                            {% endfor %}
+                              </ul>
+                            </div>
+                        {% endif %}
+                        <button type="submit" class="btn btn-primary">Create</button>
+                    </form>
+                    </div>
+
+			</div>
+		</div>
+	</div>
+</section>
+{% endblock %}

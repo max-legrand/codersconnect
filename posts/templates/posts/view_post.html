@@ -6,37 +6,54 @@
     <div class="row">
       <div class="col-md-12">
         <div class="block text-center">
-
-          <h1 class="text-capitalize mb-4 text-lg">Get connected.</h1>
-          <ul class="list-inline">
-            <li class="list-inline-item"><a href="{% url 'users:login_user' %}" class="text-white">Login</a></li>
-          </ul>
+          <h1 class="text-capitalize mb-4 text-lg">View Listing</h1>
+            <button style="border:0"class="btn-filter btn-main btn-round-full"><a href="{% url 'posts:view_listings' %}"><font color="white">View Other Listings</font></a></button>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<section style="padding: 100px 0;">
-	<div class="container">
-        <div class="text-center p-5 shadow rounded">
-<h1>View Post</h1>
+<!-- section listings start -->
+<section class="listing-search bg-gray">
 
-<h1>{{post.title}}</h1>
-<br>
-<h2>Description:</h2>
-<p>{{post.description}}</p>
-<br>
-<h2>Location: {{post.location}}</h2>
-<br>
-<h2>TechStack: {{post.techstack}}</h2>
-<br>
-<h2>Contact info:</h2>
-<h3>Organization name: {{contact.organization_name}}</h3>
-<h3>Email: {{contact.email}}</h3>
+  <div class="container">
+    <!--Start listing card-->
+    <div class="card listing-card">
+        <div class="card-header"><h5>{{post.title}}</h5></div>
+          <div class="card-body">
+              <div class="row">
+                  <div class="col-md-2">
+                    <img src="images/about/about.jpg" class="listing-thumbnail"/>
+                  </div>
+                  <div class="col-md-3">
+                    <ul class="listing-list">
+                      <li class="listing-listitem"><i class="icon-red far fa-calendar-alt"></i> {{post.timestamp}}</li>
+                      <li class="listing-listitem"><i class="icon-red fas fa-edit"></i> {{contact.email}}</li>
+                      <li class="listing-listitem"><i class="icon-red fas fa-map-marker-alt"></i> {{post.location}}</li>
+                    </ul>
+                  </div>
+                  <div class="col-md-7"><h6>About {{contact.organization_name}}</h6>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ac enim lorem. Cras congue lacinia nunc. Aliquam erat volutpat. Cras lacinia orci quis magna dignissim consequat. Donec sit amet neque posuere diam elementum facilisis. Vivamus eget et.</div>
+              </div>
+              <div><br><h6>Job Description</h6><p> {{post.description}}</p>
+                <div><br><h6>Skills Needed</h6>
+                    {% for skill in skillslist %}
+                    <li>{{skill}}</li>
+                    {%endfor%}
+                </div>
+                  {% if user.extendeduser %}
+                  <form method="POST" action="{% url 'posts:apply' %}">
+                      {% csrf_token %}
+                      <input type="hidden" name="num" value="{{post.id}}">
+              <button type="submit" class="btn btn-outline-primary btn-space" style="float:right;"> <i class="fas fa-edit"></i> Apply </button>
+                  </form>
+                      {% endif %}
+          </div>
+        </div>
 
-<a href="/posts/view_listings">Go Back</a>
-    </div>
-    </div>
+    <!--Start listing card-->
+
+  </div>
+
 </section>
 {% endblock %}
