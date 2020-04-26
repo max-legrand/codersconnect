@@ -7,7 +7,7 @@
     <div class="row">
       <div class="col-md-12">
         <div class="block text-center">
-          <h1 class="text-capitalize mb-4 text-lg">Postings</h1>
+          <h1 class="text-capitalize mb-4 text-lg">Listings</h1>
           <span class="text-white-50">Manage your organizations postings for projects, view applicants for each project, and create new postings!</span>
         </div>
       </div>
@@ -65,7 +65,21 @@
               <div class="post-act">
                   <form method="GET" action="{% url 'posts:edit_post' num=post.id %}">
                    <button type="submit" class="btn btn-outline-secondary btn-smallgray btn-space" style="float:left;"> <i class="fas fa-edit"></i> Edit</button>
+
                   </form>
+                  {% if post.status %}
+                  <form method="POST" action="{% url 'posts:close_listing' %}">
+                      {% csrf_token %}
+                      <input type="hidden" name="num" value="{{post.id}}">
+                  <button type="submit" class="btn btn-outline-danger btn-small btn-space" style="float:left;"> Close Listing</button>
+                      </form>
+                  {% else %}
+                  <form method="POST" action="{% url 'posts:open_listing' %}">
+                      {% csrf_token %}
+                      <input type="hidden" name="num" value="{{post.id}}">
+                  <button type="submit" class="btn btn-outline-success btn-small btn-space" style="float:left;"> Open Listing</button>
+                      </form>
+                  {% endif %}
                       <form method="POST" action="{% url 'posts:delete_post' %}">
                       {% csrf_token %}
                       <input type="hidden" name="postnum" value="{{post.id}}">

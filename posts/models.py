@@ -12,6 +12,7 @@ class Postings(models.Model):
     timestamp = models.DateField(default=date.today)
     status = models.BooleanField(default=True) # T == active F == closed
     applicants = models.IntegerField(default=0)
+    image= models.TextField(default="http://via.placeholder.com/150")
 
 
 class Connection(models.Model):

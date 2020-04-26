@@ -240,10 +240,11 @@ class CreatePost(forms.ModelForm):
             ('Information Technology', 'Information Technology')
         )
         model = models.Postings
-        fields = ['title', 'location', 'techstack', 'description']
+        fields = ['title', 'location', 'techstack', 'description', 'image']
         widgets = {
             'title': forms.TextInput(attrs={'class': 'form-control'}),
             'location': forms.Select(attrs={'class': "form-control"}, choices=loc_choices),
             'techstack': forms.SelectMultiple(attrs={'class': 'form-control'}, choices=tech_choices),
-            'description': forms.Textarea(attrs={'class': 'form-control'})
+            'description': forms.Textarea(attrs={'class': 'form-control'}),
+            'image': forms.TextInput(attrs={'class': 'form-control'}),
         }

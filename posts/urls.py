@@ -15,5 +15,10 @@ urlpatterns = [
     path('view_jobs', views.view_jobs, name="view_jobs"),
     path('status_update', views.statusChange, name="status_update"),
     path('view_applicants/num=<int:num>', views.view_applicants, name="view_applicants"),
-    path('status_applicant', views.status_applicant, name="status_applicant")
+    path('status_applicant', views.status_applicant, name="status_applicant"),
+    path('view_jobs_accepted', views.view_jobs_accepted, name="view_jobs_accepted"),
+    path('view_connections', views.view_connections, name="view_connections"),
+    path('status_connection', views.status_connection, name="status_connection"),
+    path('close_listing', views.close_listing, name="close_listing"),
+    path('open_listing', views.open_listing, name="open_listing")
 ]

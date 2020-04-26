@@ -17,6 +17,9 @@ def delete_post(request):
         print(request.POST)
         try:
             post = models.Postings.objects.get(id=request.POST["postnum"])
+            cnct = models.Connection.objects.all().filter(post=post)
+            for c in cnct:
+                c.delete()
             post.delete()
         except Exception:
             pass
@@ -27,9 +30,9 @@ def view_listings(request, location=None, techstack=None):
     if request.method == "POST":
         pass
     else:
-        posts = models.Postings.objects.all()
-    print(posts[0].techstack[0:15])
-    print(type(posts[0].techstack))
+        posts = models.Postings.objects.all().filter(status=True)
+    #print(posts[0].techstack[0:15])
+    #print(type(posts[0].techstack))
     return render(request, "posts/view_all.html", {"posts": posts})
 
 
@@ -41,7 +44,7 @@ def filter_list(request):
         else:
             locationList = request.POST.getlist("location[]")
             techList = request.POST.getlist("techstack[]")
-            queryset = models.Postings.objects.all()
+            queryset = models.Postings.objects.all().filter(status=True)
             resultset = []
             for location in locationList:
                 resultset += queryset.filter(location__icontains=location)
@@ -111,6 +114,7 @@ def create_post(request):
             print(post.title)
             user = request.user.organization
             post.techstack = post.techstack.replace("'", "").replace("[","").replace("]","")
+
             print(request.user.username)
             print(request.user.organization.organization_name)
             post.organization = user
@@ -156,7 +160,7 @@ def view_jobs(request):
         jobs = models.Connection.objects.all().filter(accept_user=user.extendeduser, accepted=False)
         #filterd_list = jobs.filter(user__exact=user.extendeduser)
     else:
-        return redirect('/home')
+        return redirect('home')
         pass
     return render(request, 'posts/view_jobs.html', {"user": user, "jobs": jobs})
 
@@ -169,7 +173,7 @@ def withdraw(request):
         cnct.post.save()
         cnct.delete()
     else:
-        return redirect('/home')
+        return redirect('home')
     return redirect('/posts/view_jobs')
 
 @is_user
@@ -179,6 +183,7 @@ def statusChange(request):
         cnct = models.Connection.objects.get(id=num)
         if request.POST['status'] == 'accept':
             cnct.accepted = True
+            cnct.save()
         elif request.POST['status'] == 'reject':
             cnct.post.applicants -= 1
             cnct.post.save()
@@ -199,7 +204,7 @@ def view_applicants(request,num):
             print(e)
             return redirect('/posts/manage_post')
     else:
-        return redirect('/home')
+        return redirect('home')
 @is_org
 def status_applicant(request):
     if request.method == "POST":
@@ -208,13 +213,76 @@ def status_applicant(request):
         cnct = models.Connection.objects.get(id=id)
         if status == 'accept':
             cnct.status = 2
+            cnct.post.applicants-=1
+            cnct.post.save()
             cnct.save()
         elif status == 'reject':
             cnct.status = 1
+            cnct.post.applicants -= 1
+            cnct.post.save()
             cnct.save()
         else:
             pass
     else:
-        return redirect('/home')
+        return redirect('home')
     applicants = models.Connection.objects.all().filter(post=cnct.post, status=0)
     return render(request, 'posts/view_applicants.html', {'applicants': applicants, 'post': cnct.post})
+
+@is_user
+def view_jobs_accepted(request):
+    if request.method == "GET":
+        user = request.user.extendeduser
+        try:
+            jobs_accepted = models.Connection.objects.all().filter(accept_user=user, accepted=True)
+            return render(request, 'posts/view_jobs_accepted.html', {'jobs': jobs_accepted})
+        except Exception as e:
+            print(e)
+            return redirect('home')
+    else:
+        return redirect('home')
+
+@is_org
+def view_connections(request):
+    if request.method == "GET":
+        org = request.user.organization
+        posts = models.Postings.objects.all().filter(organization=org)
+        connections = []
+        allCnct = models.Connection.objects.all()
+        for post in posts:
+            connections+= allCnct.filter(post=post, accepted=True)
+
+        return render(request, 'posts/view_connections.html', {'connections': connections})
+    else:
+        return redirect('home')
+
+@is_org
+def status_connection(request):
+    if request.method == "POST":
+        id = int(request.POST['num'])
+        status = request.POST['status']
+        cnct = models.Connection.objects.get(id=id)
+        if status == 'delete':
+            cnct.delete()
+        else:
+            pass
+    else:
+        return redirect('home')
+    return redirect('/posts/view_connections')
+
+@is_org
+def close_listing(request):
+    if request.method == "POST":
+        id = request.POST['num']
+        post = models.Postings.objects.get(id=id)
+        post.status = False
+        post.save()
+    return redirect('/posts/manage_post')
+
+@is_org
+def open_listing(request):
+    if request.method == "POST":
+        id = request.POST['num']
+        post = models.Postings.objects.get(id=id)
+        post.status = True
+        post.save()
+    return redirect('/posts/manage_post')

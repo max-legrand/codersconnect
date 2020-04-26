@@ -59,11 +59,11 @@
             <ul class="dropdown-menu" aria-labelledby="dropdown05">
               <li><a class="dropdown-item" href="{% url 'users:update_info' %}">My Account</a></li>
 				{% if user.extendeduser %}
-              <li><a class="dropdown-item" href="blog-sidebar.html">My Jobs</a></li>
+              <li><a class="dropdown-item" href="{% url 'posts:view_jobs_accepted' %}">My Jobs</a></li>
               <li><a class="dropdown-item" href="{% url 'posts:view_jobs' %}">My Applications</a></li>
 				{% elif user.organization %}
 				<li><a class="dropdown-item" href="{% url 'posts:manage_post' %}">My Listings</a></li>
-				<li><a class="dropdown-item" href="blog-sidebar.html">My Connections</a></li>
+				<li><a class="dropdown-item" href="{% url 'posts:view_connections' %}">My Connections</a></li>
 				{% else %}
 				{%endif%}
 				<form id="UserLogout" action="/users/logout/" method="POST" style="display:none">

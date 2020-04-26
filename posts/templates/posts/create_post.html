@@ -25,7 +25,7 @@
 			<div class="col-md-8 mx-auto">
 				<div class="text-center p-5 shadow rounded">
 					<h2 class="mb-3"> <span class="text-color">Create Listing</span> <br> <small> Crowdsource your opportunity </small></h2>
-    <form class='site-form' action="{% url 'posts:create_post' %}" method="post">
+    <form class='site-form' action="{% url 'posts:create_post' %}" method="post" enctype="multipart/form-data">
         {% for field1 in form %}
     <div class="form-group text-left">
         {{ field1.label_tag }} {{ field1 |add_classes:'form-control' }}

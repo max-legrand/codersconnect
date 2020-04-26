@@ -8,7 +8,7 @@
       <div class="col-md-12">
         <div class="block text-center">
           <h1 class="text-capitalize mb-4 text-lg">Applicants for {{post.title}}</h1>
-          <span class="text-color">View and manage applicants for your projects. Accept, deny, or get in contact with certain applicants.</span>
+          <span class="text-white-50">View and manage applicants for your projects. Accept, deny, or get in contact with certain applicants.</span>
         </div>
       </div>
     </div>
@@ -42,7 +42,7 @@
                   <div class="col-md-2">
                     <img src="images/about/mark.jpeg" class="listing-thumbnail"/>
                   </div>
-                  <div class="col-md-10"><h6>About Me</h6>Hi, I'm Mark Stanik. I am a sophomore part of the Rutgers Engineering Honors Academy. This will be taken from my profile page...<br/>
+                  <div class="col-md-10"><h6>About Me</h6>{{applicant.accept_user.description}}<br/>
                       <h6>Contact Information</h6><b>Email:</b> <a href="mailto:{{applicant.accept_user.email}}">{{applicant.accept_user.email}}</a></div>
               </div>
               <div><br></div>

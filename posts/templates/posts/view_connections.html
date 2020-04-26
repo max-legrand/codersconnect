@@ -1,0 +1,70 @@
+{% extends 'base_layout.html' %}
+{% block content %}
+{% load custom_tags %}
+
+<section class="page-title bg-1">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="block text-center">
+          <h1 class="text-capitalize mb-4 text-lg">My Connections</h1>
+          <span class="text-white-50">View and manage connections for your projects. Delete or get in contact with certain connections.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+
+</section>
+
+
+
+
+
+<!-- section listings start -->
+<section class="listing-search bg-gray">
+
+  <div class="container">
+    <!--Start listing card-->
+      {% if connections %}
+      {% else %}
+      <h2 style="margin-top:10em; margin-bottom:10em;"align="center">No connections currently, <a href="{% url 'posts:manage_post' %}">Click Here to View Listings</a></h2>
+      {% endif %}
+      {% for applicant in connections %}
+    <div class="card listing-card">
+        <div class="card-header"><h5>{{applicant.accept_user.firstname}} {{applicant.accept_user.lastname}}</h5></div>
+          <div class="card-body">
+              <div class="row">
+                  <div class="col-md-2">
+                    <img src="images/about/mark.jpeg" class="listing-thumbnail"/>
+                  </div>
+                  <div class="col-md-10"><h6>About Me</h6>Hi, I'm Mark Stanik. I am a sophomore part of the Rutgers Engineering Honors Academy. This will be taken from my profile page...<br/>
+                      <h6>Contact Information</h6><b>Email:</b> <a href="mailto:{{applicant.accept_user.email}}">{{applicant.accept_user.email}}</a></div>
+              </div>
+              <div><br></div>
+              <div style="float:right;">
+              <form method="POST" action="{% url 'posts:status_connection' %}">
+                          {% csrf_token %}
+                        <input type="hidden" name="num" value="{{applicant.id}}">
+                      <input type="hidden" name="status" value="delete">
+                <button type="submit" class="btn btn-outline-danger btn-small" style="float:left;"> <i class="fas fa-times"></i> Delete</button>
+                  </form>
+          </div>
+              <div style="float:right; margin-left:1em; margin-right: 1em;">
+                <button type="button"  class="btn btn-outline-primary btn-small" onclick="window.location.href = 'mailto:{{applicant.accept_user.email}}';"> Contact</button>
+
+             </div>
+          </div>
+        </div>
+      {% endfor %}
+
+
+  </div>
+
+</section>
+
+{% endblock %}

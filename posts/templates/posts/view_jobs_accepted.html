@@ -1,0 +1,75 @@
+{% extends 'base_layout.html' %}
+{% block content %}
+{% load custom_tags %}
+<div class="main-wrapper">
+
+<section class="page-title bg-1">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="block text-center">
+          <h1 class="text-capitalize mb-4 text-lg">My Jobs</h1>
+          <span class="text-white-50">View the different projects you are currently working on.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+
+<!-- section listings start -->
+<section class="listing-search bg-gray">
+
+  <div class="container">
+    <!--Start listing card-->
+      {% if jobs %}
+      {% else %}
+      <h2 style="margin-top:10em; margin-bottom:10em;"align="center">No jobs currently, <a href="{% url 'posts:view_jobs' %}">Click Here to View Applications</a></h2>
+      {% endif %}
+      {% for job in jobs %}
+
+        <div class="card listing-card">
+            <div class="card-header"><h5>{{job.post.title}} <div style="float:right;"> Status: <font color="green">Working</font> </h5></div>
+              <div class="card-body">
+                  <div class="row">
+                      <div class="col-md-2">
+                        <img src="https://via.placeholder.com/150" class="listing-thumbnail"/>
+                      </div>
+                      <div class="col-md-3">
+                        <ul class="listing-list">
+                          <li class="listing-listitem"><i class="icon-red far fa-calendar-alt"></i> {{job.post.timestamp}}</li>
+                        {% if job.post.techstack|length > 30 %}
+                        <li class="listing-listitem"><i class="icon-red fas fa-tags"></i> {{job.post.techstack|slice:"0:30" }}...</li>
+                        {% else %}
+                            <li class="listing-listitem"><i class="icon-red fas fa-tags"></i> {{job.post.techstack}}</li>
+                        {% endif %}
+
+                      <li class="listing-listitem"><i class="icon-red fas fa-map-marker-alt"></i> {{job.post.location}}</li>
+                        </ul>
+                      </div>
+                      {% if job.post.description|length > 300 %}
+                  <div class="col-md-7">{{job.post.description|slice:"0:300"}}...</div>
+                  {% else %}
+                  <div class="col-md-7">{{job.post.description}}</div>
+                  {% endif %}
+                  </div>
+
+                  <div class="withdrawl" style="float:right;">
+                      <form method="POST" action="{% url 'posts:withdraw' %}">
+                          {% csrf_token %}
+                        <input type="hidden" name="num" value="{{job.id}}">
+                          <button type="submit" class="btn btn-outline-secondary"> Delete</button>
+
+                      </form>
+                 </div>
+                  <button style="float:right; margin-left: 1em; margin-right:1em;"type="button" class="btn btn-outline-primary" onclick="window.location.href = 'mailto:{{post.organization.email}}';"> Contact Employer</button>
+
+              </div>
+            </div>
+    {% endfor %}
+  </div>
+
+</section>
+{% endblock %}

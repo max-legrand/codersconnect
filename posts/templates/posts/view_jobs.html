@@ -9,7 +9,7 @@
       <div class="col-md-12">
         <div class="block text-center">
           <h1 class="text-capitalize mb-4 text-lg">My Applications</h1>
-          <span class="text-color">View the status of your applications for different projects!</span>
+          <span class="text-white-50">View the status of your applications for different projects!</span>
         </div>
       </div>
     </div>
@@ -99,13 +99,14 @@
                       <input type="hidden" name="status" value="accept">
                    <button type="submit" class="btn btn-outline-success"> <i class="fas fa-check"></i> Accept</button>
                   </form>
+                  </div>
                       <form method="POST" action="{% url 'posts:status_update' %}">
                           {% csrf_token %}
                         <input type="hidden" name="num" value="{{job.id}}">
                           <input type="hidden" name="status" value="reject">
-                   <button type="submit" class="btn btn-outline-danger"> <i class="fas fa-times"></i> Decline</button>
+                   <button type="submit" style="float:right; margin-left: 1em; margin-right: 1em;" class="btn btn-outline-danger"> <i class="fas fa-times"></i> Decline</button>
                       </form>
-             </div>
+
           </div>
         </div>
       {% else %}
