@@ -143,8 +143,9 @@ def apply(request):
             post = models.Postings.objects.get(id=num)
             post.applicants+=1
             post.save()
-            cnct = models.Connection(post=post, accept_user=request.user.extendeduser, status=0)
-            cnct.save()
+            if len(models.Connection.objects.all().filter(post=post, accept_user=request.user.extendeduser)) < 1:
+                cnct = models.Connection(post=post, accept_user=request.user.extendeduser, status=0)
+                cnct.save()
         except Exception as e:
             print(e)
             pass
