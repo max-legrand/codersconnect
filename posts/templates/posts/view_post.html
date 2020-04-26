@@ -1,3 +1,25 @@
+{% extends 'base_layout.html' %}
+{% block content %}
+{% load custom_tags %}
+<section class="page-title bg-1">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="block text-center">
+
+          <h1 class="text-capitalize mb-4 text-lg">Get connected.</h1>
+          <ul class="list-inline">
+            <li class="list-inline-item"><a href="{% url 'users:login_user' %}" class="text-white">Login</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section style="padding: 100px 0;">
+	<div class="container">
+        <div class="text-center p-5 shadow rounded">
 <h1>View Post</h1>
 
 <h1>{{post.title}}</h1>
@@ -14,3 +36,7 @@
 <h3>Email: {{contact.email}}</h3>
 
 <a href="/posts/view_listings">Go Back</a>
+    </div>
+    </div>
+</section>
+{% endblock %}

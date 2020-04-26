@@ -49,7 +49,7 @@
             <a class="nav-link" href="listings.html">About <span class="sr-only">(current)</span></a>
           </li>
 		  <li class="nav-item active">
-            <a class="nav-link" href="listings.html">Listings <span class="sr-only">(current)</span></a>
+            <a class="nav-link" href="{% url 'posts:view_listings' %}">Listings <span class="sr-only">(current)</span></a>
           </li>
 			{% if user.is_authenticated %}
           <li class="nav-item dropdown">

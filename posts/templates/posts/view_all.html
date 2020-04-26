@@ -1,49 +1,324 @@
-<h1>view listings</h1>
-<table>
-<tr>
-<th>Post title</th>
-<th>Location</th>
-<th>Tech Stack</th>
-<th>View</th>
-{%if request.user.extendeduser %}
-<th>
-    Connect
-</th>
-{%endif%}
-</tr>
-{% for post in posts %}
-    <tr>
-        <td>{{post.title}}</td>
+{% extends 'base_layout.html' %}
+{% block content %}
+{% load custom_tags %}
 
-        {% if post.location|length > 15 %}
-            <td>{{post.location|slice:"0:15" }}...</td>
-        {%else %}
-            <td>{{post.location}}</td>
-        {% endif %}
+<section class="page-title bg-1">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="block text-center">
+          <h1 class="text-capitalize mb-4 text-lg">Listings</h1>
+          <button data-toggle="modal" data-target="#filterSearch" style="border:0"class="btn-filter btn-main btn-round-full">Apply Filters<i
+            class="btn-icon fa fa-filter ml-2"></i></button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
-        {% if post.techstack|length > 15 %}
-            <td>{{post.techstack|slice:"0:15" }}...</td>
-        {%else %}
-            <td>{{post.techstack}}</td>
-        {% endif %}
-        <td><a href="{% url 'posts:view_post' num=post.id %}">View</a></td>
-        {%if request.user.extendeduser %}
-        <td>
-            Connect
-        </td>
-        {%endif%}
+  <!-- Modal -->
+  <div class="modal fade" id="filterSearch" tabindex="-1" role="dialog" aria-labelledby="filterSearch" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Filter Search</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+          <form action="{% url 'posts:filter_list' %}" method="post">
+              {% csrf_token %}
+        <div class="modal-body">
+            <div class="form-group text-left">
+                            <label for="id_location">Location</label>
+                            <select class="form-control" id="location" name="location[]" multiple>
+                                <option>Remote</option>
+                                <option>AK (All)</option>
+                                <option>AK (North)</option>
+                                <option>AK (Central)</option>
+                                <option>AK (South)</option>
+                                <option>AL (All)</option>
+                                <option>AL (North)</option>
+                                <option>AL (Central)</option>
+                                <option>AL (South)</option>
+                                <option>AR (All)</option>
+                                <option>AR (North)</option>
+                                <option>AR (Central)</option>
+                                <option>AR (South)</option>
+                                <option>AZ (All)</option>
+                                <option>AZ (North)</option>
+                                <option>AZ (Central)</option>
+                                <option>AZ (South)</option>
+                                <option>CA (All)</option>
+                                <option>CA (North)</option>
+                                <option>CA (Central)</option>
+                                <option>CA (South)</option>
+                                <option>CO (All)</option>
+                                <option>CO (North)</option>
+                                <option>CO (Central)</option>
+                                <option>CO (South)</option>
+                                <option>CT (All)</option>
+                                <option>CT (North)</option>
+                                <option>CT (Central)</option>
+                                <option>CT (South)</option>
+                                <option>DE (All)</option>
+                                <option>DE (North)</option>
+                                <option>DE (Central)</option>
+                                <option>DE (South)</option>
+                                <option>FL (All)</option>
+                                <option>FL (North)</option>
+                                <option>FL (Central)</option>
+                                <option>FL (South)</option>
+                                <option>GA (All)</option>
+                                <option>GA (North)</option>
+                                <option>GA (Central)</option>
+                                <option>GA (South)</option>
+                                <option>HI (All)</option>
+                                <option>HI (North)</option>
+                                <option>HI (Central)</option>
+                                <option>HI (South)</option>
+                                <option>IA (All)</option>
+                                <option>IA (North)</option>
+                                <option>IA (Central)</option>
+                                <option>IA (South)</option>
+                                <option>ID (All)</option>
+                                <option>ID (North)</option>
+                                <option>ID (Central)</option>
+                                <option>ID (South)</option>
+                                <option>IL (All)</option>
+                                <option>IL (North)</option>
+                                <option>IL (Central)</option>
+                                <option>IL (South)</option>
+                                <option>IN (All)</option>
+                                <option>IN (North)</option>
+                                <option>IN (Central)</option>
+                                <option>IN (South)</option>
+                                <option>KS (All)</option>
+                                <option>KS (North)</option>
+                                <option>KS (Central)</option>
+                                <option>KS (South)</option>
+                                <option>KY (All)</option>
+                                <option>KY (North)</option>
+                                <option>KY (Central)</option>
+                                <option>KY (South)</option>
+                                <option>LA (All)</option>
+                                <option>LA (North)</option>
+                                <option>LA (Central)</option>
+                                <option>LA (South)</option>
+                                <option>MA (All)</option>
+                                <option>MA (North)</option>
+                                <option>MA (Central)</option>
+                                <option>MA (South)</option>
+                                <option>MD (All)</option>
+                                <option>MD (North)</option>
+                                <option>MD (Central)</option>
+                                <option>MD (South)</option>
+                                <option>ME (All)</option>
+                                <option>ME (North)</option>
+                                <option>ME (Central)</option>
+                                <option>ME (South)</option>
+                                <option>MI (All)</option>
+                                <option>MI (North)</option>
+                                <option>MI (Central)</option>
+                                <option>MI (South)</option>
+                                <option>MN (All)</option>
+                                <option>MN (North)</option>
+                                <option>MN (Central)</option>
+                                <option>MN (South)</option>
+                                <option>MO (All)</option>
+                                <option>MO (North)</option>
+                                <option>MO (Central)</option>
+                                <option>MO (South)</option>
+                                <option>MS (All)</option>
+                                <option>MS (North)</option>
+                                <option>MS (Central)</option>
+                                <option>MS (South)</option>
+                                <option>MT (All)</option>
+                                <option>MT (North)</option>
+                                <option>MT (Central)</option>
+                                <option>MT (South)</option>
+                                <option>NC (All)</option>
+                                <option>NC (North)</option>
+                                <option>NC (Central)</option>
+                                <option>NC (South)</option>
+                                <option>ND (All)</option>
+                                <option>ND (North)</option>
+                                <option>ND (Central)</option>
+                                <option>ND (South)</option>
+                                <option>NE (All)</option>
+                                <option>NE (North)</option>
+                                <option>NE (Central)</option>
+                                <option>NE (South)</option>
+                                <option>NH (All)</option>
+                                <option>NH (North)</option>
+                                <option>NH (Central)</option>
+                                <option>NH (South)</option>
+                                <option>NJ (All)</option>
+                                <option>NJ (North)</option>
+                                <option>NJ (Central)</option>
+                                <option>NJ (South)</option>
+                                <option>NM (All)</option>
+                                <option>NM (North)</option>
+                                <option>NM (Central)</option>
+                                <option>NM (South)</option>
+                                <option>NV (All)</option>
+                                <option>NV (North)</option>
+                                <option>NV (Central)</option>
+                                <option>NV (South)</option>
+                                <option>NY (All)</option>
+                                <option>NY (North)</option>
+                                <option>NY (Central)</option>
+                                <option>NY (South)</option>
+                                <option>OH (All)</option>
+                                <option>OH (North)</option>
+                                <option>OH (Central)</option>
+                                <option>OH (South)</option>
+                                <option>OK (All)</option>
+                                <option>OK (North)</option>
+                                <option>OK (Central)</option>
+                                <option>OK (South)</option>
+                                <option>OR (All)</option>
+                                <option>OR (North)</option>
+                                <option>OR (Central)</option>
+                                <option>OR (South)</option>
+                                <option>PA (All)</option>
+                                <option>PA (North)</option>
+                                <option>PA (Central)</option>
+                                <option>PA (South)</option>
+                                <option>RI (All)</option>
+                                <option>RI (North)</option>
+                                <option>RI (Central)</option>
+                                <option>RI (South)</option>
+                                <option>SC (All)</option>
+                                <option>SC (North)</option>
+                                <option>SC (Central)</option>
+                                <option>SC (South)</option>
+                                <option>SD (All)</option>
+                                <option>SD (North)</option>
+                                <option>SD (Central)</option>
+                                <option>SD (South)</option>
+                                <option>TN (All)</option>
+                                <option>TN (North)</option>
+                                <option>TN (Central)</option>
+                                <option>TN (South)</option>
+                                <option>TX (All)</option>
+                                <option>TX (North)</option>
+                                <option>TX (Central)</option>
+                                <option>TX (South)</option>
+                                <option>UT (All)</option>
+                                <option>UT (North)</option>
+                                <option>UT (Central)</option>
+                                <option>UT (South)</option>
+                                <option>VA (All)</option>
+                                <option>VA (North)</option>
+                                <option>VA (Central)</option>
+                                <option>VA (South)</option>
+                                <option>VT (All)</option>
+                                <option>VT (North)</option>
+                                <option>VT (Central)</option>
+                                <option>VT (South)</option>
+                                <option>WA (All)</option>
+                                <option>WA (North)</option>
+                                <option>WA (Central)</option>
+                                <option>WA (South)</option>
+                                <option>WI (All)</option>
+                                <option>WI (North)</option>
+                                <option>WI (Central)</option>
+                                <option>WI (South)</option>
+                                <option>WV (All)</option>
+                                <option>WV (North)</option>
+                                <option>WV (Central)</option>
+                                <option>WV (South)</option>
+                                <option>WY (All)</option>
+                                <option>WY (North)</option>
+                                <option>WY (Central)</option>
+                                <option>WY (South)</option>
+                            </select>
+                        </div>
+            <div class="form-group text-left">
+                            <label for="id_techstack">Technologies</label>
+                            <select class="form-control" id="techstack" name="techstack[]" multiple>
+                                <option>JavaScript</option>
+                                <option>Java</option>
+                                <option>Cloud</option>
+                                <option>Python</option>
+                                <option>C++</option>
+                                <option>Android Development</option>
+                                <option>C</option>
+                                <option>C#</option>
+                                <option>PHP</option>
+                                <option>Git</option>
+                                <option>R</option>
+                                <option>SQL</option>
+                                <option>Backend</option>
+                                <option>Frontend</option>
+                                <option>Cloud</option>
+                                <option>AWS</option>
+                                <option>Azure</option>
+                                <option>Google Cloud</option>
+                                <option>Linux</option>
+                                <option>Data Warehousing</option>
+                                <option>Hadoop</option>
+                                <option>Spark</option>
+                                <option>Data Science</option>
+                                <option>Drupal</option>
+                                <option>CMS</option>
+                                <option>Wordpress</option>
+                                <option>Shopify</option>
+                                <option>Networking</option>
+                                <option>Information Technology</option>
+                            </select>
+                        </div>
 
-    </tr>
-{% endfor %}
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary">Filter Search</button>
+        </div>
+          </form>
+      </div>
+    </div>
+  </div>
 
-</table>
-<br>
-<form class='site-form' action="{% url 'posts:filter_list'%}" method="post">
-    <input type="text" name="location" placeholder="Filter location">
-    <input type="text" name="techstack" placeholder="Filter techstack">
-    {% csrf_token %}
-    <input class="sub_button" type="submit" value="Search">
-</form>
 
-<br>
-<a href="{% url 'home' %}">Go Back</a>
+<!-- section listings start -->
+<section class="listing-search bg-gray">
+
+  <div class="container">
+    <!--Start listing card-->
+      {% for post in posts %}
+    <div class="card listing-card">
+        <div class="card-header"><h5><a href="{% url 'posts:view_post' num=post.id %}">{{post.title}}</a></h5></div>
+          <div class="card-body">
+              <div class="row">
+                  <div class="col-md-2">
+                    <img src="https://via.placeholder.com/150" class="listing-thumbnail"/>
+                  </div>
+                  <div class="col-md-3">
+                    <ul class="listing-list">
+                      <li class="listing-listitem"><i class="icon-red far fa-calendar-alt"></i> {{post.timestamp}}</li>
+                        {% if post.techstack|length > 30 %}
+                        <li class="listing-listitem"><i class="icon-red fas fa-tags"></i> {{post.techstack|slice:"0:30" }}...</li>
+                        {% else %}
+                            <li class="listing-listitem"><i class="icon-red fas fa-tags"></i> {{post.techstack}}</li>
+                        {% endif %}
+
+                      <li class="listing-listitem"><i class="icon-red fas fa-map-marker-alt"></i> New Brunswick, NJ</li>
+                    </ul>
+                  </div>
+                  {% if post.description|length > 300 %}
+                  <div class="col-md-7">{{post.description|slice:"0:300"}}...</div>
+                  {% else %}
+                  <div class="col-md-7">{{post.description}}</div>
+                  {% endif %}
+              </div>
+
+          </div>
+        </div>
+    {% endfor %}
+
+
+  </div>
+
+</section>
+{%endblock%}

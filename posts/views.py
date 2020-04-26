@@ -36,15 +36,18 @@ def view_listings(request, location=None, techstack=None):
 def filter_list(request):
     if request.method == "POST":
         print(request.POST)
-        if request.POST["location"] == "" and request.POST["techstack"] == "":
+        if len(request.POST.getlist("location[]")) == 0 and len(request.POST.getlist("techstack[]")) == 0:
             return redirect("/posts/view_listings")
         else:
-            print(request.POST["location"])
-            print(request.POST["techstack"])
+            locationList = request.POST.getlist("location[]")
+            techList = request.POST.getlist("techstack[]")
             queryset = models.Postings.objects.all()
-            queryset = queryset.filter(location__icontains=request.POST["location"])
-            queryset = queryset.filter(techstack__icontains=request.POST["techstack"])
-            return render(request, "posts/view_all.html", {"posts":queryset})
+            resultset = []
+            for location in locationList:
+                resultset += queryset.filter(location__icontains=location)
+            for techstack in techList:
+                resultset += queryset.filter(techstack__icontains=techstack)
+            return render(request, "posts/view_all.html", {"posts":resultset})
     else:
         return redirect("/posts/view_listings")
     

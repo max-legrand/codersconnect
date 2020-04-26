@@ -1,6 +1,6 @@
 from django.db import models
 from users import models as usermodels
-
+from datetime import date
 
 # Create your models here.
 class Postings(models.Model):
@@ -9,6 +9,7 @@ class Postings(models.Model):
     location = models.TextField(default="Remote")
     techstack = models.TextField(default="N/A")
     organization = models.ForeignKey(usermodels.Organization, default=None, on_delete=models.CASCADE)
+    timestamp = models.DateField(default=date.today)
 
 
 class Connection(models.Model):
