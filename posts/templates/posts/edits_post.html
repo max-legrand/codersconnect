@@ -9,9 +9,9 @@
 
           <h1 class="text-capitalize mb-4 text-lg">Source talent.</h1>
           <ul class="list-inline">
-            <li class="list-inline-item"><a href="{% url 'posts:create_post' %}" class="text-white-50">Create</a></li>
+              <li class="list-inline-item"> <font class="text-white-50">Edit</font></li>
             <li class="list-inline-item"><span class="text-white">/</span></li>
-            <li class="list-inline-item"><a href="{% url 'posts:create_post' %}" class="text-white">Listing</a></li>
+            <li class="list-inline-item"><font class="text-white">Listing</font></li>
           </ul>
         </div>
       </div>
@@ -24,7 +24,7 @@
 		<div class="row">
 			<div class="col-md-8 mx-auto">
 				<div class="text-center p-5 shadow rounded">
-					<h2 class="mb-3"> <span class="text-color">Create Listing</span> <br> <small> Crowdsource your opportunity </small></h2>
+					<h2 class="mb-3"> <span class="text-color">Edit Listing</span> <br> <small> Update your opportunity </small></h2>
     <form class='site-form' action="{% url 'posts:create_post' %}" method="post">
         {% for field1 in form %}
     <div class="form-group text-left">
@@ -48,7 +48,7 @@
                               </ul>
                             </div>
                         {% endif %}
-                        <button type="submit" class="btn btn-primary">Create</button>
+                        <button type="submit" class="btn btn-primary">Update</button>
                     </form>
                     </div>
 
