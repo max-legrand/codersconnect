@@ -9,7 +9,7 @@
 				<div class="block">
 					<span class="d-block mb-3 text-white text-capitalize">Help the community</span>
 					<h1 class="animated fadeInUp mb-5">We connect <br>projects that matter <br>with people that care.</h1>
-					<a href="listings.html" target="_blank" class="btn btn-main animated fadeInUp btn-round-full">View Listings<i
+					<a href="{% url 'posts:view_listings' %}" target="_blank" class="btn btn-main animated fadeInUp btn-round-full">View Listings<i
 							class="btn-icon fa fa-angle-right ml-2"></i></a>
 				</div>
 			</div>
@@ -27,7 +27,7 @@
 					<h2 class="mt-3 content-title">We work with charities and <br> non-profits to find volunteer programming oppurtunities
 					</h2>
 				</div>
-				<a href="register.html" target="_blank" class="btn btn-main animated fadeInUp btn-round-full">Register<i
+				<a href="{% url 'users:signup_user' %}" target="_blank" class="btn btn-main animated fadeInUp btn-round-full">Register Developer<i
 					class="btn-icon fa fa-angle-right ml-2"></i></a>
 			</div>
 		</div>
@@ -49,7 +49,7 @@
 						<h4 class="mb-3 position-relative">We are the solution</h4>
 						<p class="mb-5">Create a listing explaining your mission and what work you need done. <br> Once we get a passionate coder interested in your project, we will contact you!</p>
 
-						<a href="register.html" class="btn btn-main btn-round-full">Get started</a>
+						<a href="{% url 'users:signup_org' %}" class="btn btn-main btn-round-full">Get started</a>
 					</div>
 				</div>
 			</div>
