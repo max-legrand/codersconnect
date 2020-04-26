@@ -71,7 +71,7 @@
                       <input type="hidden" name="postnum" value="{{post.id}}">
                       <button type="submit" class="btn btn-outline-danger btn-small" style="float:left;"> <i class="fas fa-times"></i> Remove</button>
                   </form>
-                  <button type="button" class="btn btn-primary" style="float:right;" ><a href="applicants.html"><font color="white">View Applicants</font></a></button>
+                  <button type="button" class="btn btn-primary" style="float:right;" ><a href="{% url 'posts:view_applicants' num=post.id %}"><font color="white">View Applicants</font></a></button>
              </div>
           </div>
         </div>

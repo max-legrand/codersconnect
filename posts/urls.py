@@ -11,5 +11,9 @@ urlpatterns = [
     path('view_post/num=<int:num>', views.view_post, name="view_post"),
     path('filter_list', views.filter_list, name="filter_list"),
     path('apply', views.apply, name="apply"),
-    path('view_jobs', views.view_jobs, name="view_jobs")
+    path('withdraw', views.withdraw, name="withdraw"),
+    path('view_jobs', views.view_jobs, name="view_jobs"),
+    path('status_update', views.statusChange, name="status_update"),
+    path('view_applicants/num=<int:num>', views.view_applicants, name="view_applicants"),
+    path('status_applicant', views.status_applicant, name="status_applicant")
 ]

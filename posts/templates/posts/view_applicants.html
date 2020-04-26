@@ -1,0 +1,72 @@
+{% extends 'base_layout.html' %}
+{% block content %}
+{% load custom_tags %}
+
+<section class="page-title bg-1">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="block text-center">
+          <h1 class="text-capitalize mb-4 text-lg">Applicants for {{post.title}}</h1>
+          <span class="text-color">View and manage applicants for your projects. Accept, deny, or get in contact with certain applicants.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+
+</section>
+
+
+
+
+
+<!-- section listings start -->
+<section class="listing-search bg-gray">
+
+  <div class="container">
+    <!--Start listing card-->
+      {% if applicants %}
+      {% else %}
+      <h2 style="margin-top:10em; margin-bottom:10em;"align="center">No applicants currently, <a href="{% url 'posts:manage_post' %}">Click Here to Go Back</a></h2>
+      {% endif %}
+      {% for applicant in applicants %}
+    <div class="card listing-card">
+        <div class="card-header"><h5>{{applicant.accept_user.firstname}} {{applicant.accept_user.lastname}}</h5></div>
+          <div class="card-body">
+              <div class="row">
+                  <div class="col-md-2">
+                    <img src="images/about/mark.jpeg" class="listing-thumbnail"/>
+                  </div>
+                  <div class="col-md-10"><h6>About Me</h6>Hi, I'm Mark Stanik. I am a sophomore part of the Rutgers Engineering Honors Academy. This will be taken from my profile page...<br/>
+                      <h6>Contact Information</h6><b>Email:</b> <a href="mailto:{{applicant.accept_user.email}}">{{applicant.accept_user.email}}</a></div>
+              </div>
+              <div><br></div>
+              <div class="post-act">
+                  <form method="POST" action="{% url 'posts:status_applicant' %}">
+                          {% csrf_token %}
+                        <input type="hidden" name="num" value="{{applicant.id}}">
+                      <input type="hidden" name="status" value="accept">
+                <button type="submit" class="btn btn-outline-success btn-small btn-space" style="float:left;"> <i class="fas fa-check"></i> Accept</button>
+                  </form>
+                  <form method="POST" action="{% url 'posts:status_applicant' %}">
+                          {% csrf_token %}
+                        <input type="hidden" name="num" value="{{applicant.id}}">
+                      <input type="hidden" name="status" value="reject">
+                <button type="submit" class="btn btn-outline-danger btn-small" style="float:left;"> <i class="fas fa-times"></i> Reject</button>
+                  </form>
+             </div>
+          </div>
+        </div>
+      {% endfor %}
+
+
+  </div>
+
+</section>
+
+{% endblock %}

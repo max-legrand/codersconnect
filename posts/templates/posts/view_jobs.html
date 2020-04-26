@@ -8,7 +8,7 @@
     <div class="row">
       <div class="col-md-12">
         <div class="block text-center">
-          <h1 class="text-capitalize mb-4 text-lg">My Jobs</h1>
+          <h1 class="text-capitalize mb-4 text-lg">My Applications</h1>
           <span class="text-color">View the status of your applications for different projects!</span>
         </div>
       </div>
@@ -24,6 +24,10 @@
 
   <div class="container">
     <!--Start listing card-->
+      {% if jobs %}
+      {% else %}
+      <h2 style="margin-top:10em; margin-bottom:10em;"align="center">No applications currently, <a href="{% url 'posts:view_listings' %}">Click Here to View Listings</a></h2>
+      {% endif %}
       {% for job in jobs %}
       {% if job.status == 1 %}
     <div class="card listing-card">
@@ -45,10 +49,18 @@
                       <li class="listing-listitem"><i class="icon-red fas fa-map-marker-alt"></i> {{job.post.location}}</li>
                     </ul>
                   </div>
-                  <div class="col-md-7">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ac enim lorem. Cras congue lacinia nunc. Aliquam erat volutpat. Cras lacinia orci quis magna dignissim consequat. Donec sit amet neque posuere diam elementum facilisis. Vivamus eget et.</div>
+                  {% if job.post.description|length > 300 %}
+                  <div class="col-md-7">{{job.post.description|slice:"0:300"}}...</div>
+                  {% else %}
+                  <div class="col-md-7">{{job.post.description}}</div>
+                  {% endif %}
               </div>
               <div class="del-app" style="float:right;">
-                   <button type="button" class="btn btn-outline-danger"> <i class="fas fa-times"></i> Remove</button>
+                  <form method="POST" action="{% url 'posts:withdraw' %}">
+                          {% csrf_token %}
+                        <input type="hidden" name="num" value="{{job.id}}">
+                   <button type="submit" class="btn btn-outline-danger"> <i class="fas fa-times"></i> Remove</button>
+                  </form>
              </div>
           </div>
         </div>
@@ -74,11 +86,25 @@
                       <li class="listing-listitem"><i class="icon-red fas fa-map-marker-alt"></i> {{job.post.location}}</li>
                     </ul>
                   </div>
-                  <div class="col-md-7">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ac enim lorem. Cras congue lacinia nunc. Aliquam erat volutpat. Cras lacinia orci quis magna dignissim consequat. Donec sit amet neque posuere diam elementum facilisis. Vivamus eget et.</div>
+                  {% if job.post.description|length > 300 %}
+                  <div class="col-md-7">{{job.post.description|slice:"0:300"}}...</div>
+                  {% else %}
+                  <div class="col-md-7">{{job.post.description}}</div>
+                  {% endif %}
               </div>
               <div class="app-actions" style="float:right;">
-                   <button type="button" class="btn btn-outline-success"> <i class="fas fa-check"></i> Accept</button>
-                   <button type="button" class="btn btn-outline-danger"> <i class="fas fa-times"></i> Decline</button>
+                  <form method="POST" action="{% url 'posts:status_update' %}">
+                          {% csrf_token %}
+                        <input type="hidden" name="num" value="{{job.id}}">
+                      <input type="hidden" name="status" value="accept">
+                   <button type="submit" class="btn btn-outline-success"> <i class="fas fa-check"></i> Accept</button>
+                  </form>
+                      <form method="POST" action="{% url 'posts:status_update' %}">
+                          {% csrf_token %}
+                        <input type="hidden" name="num" value="{{job.id}}">
+                          <input type="hidden" name="status" value="reject">
+                   <button type="submit" class="btn btn-outline-danger"> <i class="fas fa-times"></i> Decline</button>
+                      </form>
              </div>
           </div>
         </div>
@@ -102,11 +128,19 @@
                       <li class="listing-listitem"><i class="icon-red fas fa-map-marker-alt"></i> {{job.post.location}}</li>
                         </ul>
                       </div>
-                      <div class="col-md-7">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ac enim lorem. Cras congue lacinia nunc. Aliquam erat volutpat. Cras lacinia orci quis magna dignissim consequat. Donec sit amet neque posuere diam elementum facilisis. Vivamus eget et.</div>
+                      {% if job.post.description|length > 300 %}
+                  <div class="col-md-7">{{job.post.description|slice:"0:300"}}...</div>
+                  {% else %}
+                  <div class="col-md-7">{{job.post.description}}</div>
+                  {% endif %}
                   </div>
                   <div class="withdrawl" style="float:right;">
-                       <button type="button" class="btn btn-outline-secondary"> Withdraw application</button>
+                      <form method="POST" action="{% url 'posts:withdraw' %}">
+                          {% csrf_token %}
+                        <input type="hidden" name="num" value="{{job.id}}">
+                          <button type="submit" class="btn btn-outline-secondary"> Withdraw application</button>
 
+                      </form>
                  </div>
               </div>
             </div>

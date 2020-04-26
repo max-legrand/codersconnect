@@ -18,3 +18,4 @@ class Connection(models.Model):
     post = models.ForeignKey(Postings, default=None, on_delete=models.CASCADE)
     accept_user = models.ForeignKey(usermodels.ExtendedUser, default=None, on_delete=models.CASCADE)
     status = models.IntegerField(default=0)
+    accepted = models.BooleanField(default=False)

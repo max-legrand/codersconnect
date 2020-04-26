@@ -137,6 +137,8 @@ def apply(request):
         try:
             num = int(request.POST['num'])
             post = models.Postings.objects.get(id=num)
+            post.applicants+=1
+            post.save()
             cnct = models.Connection(post=post, accept_user=request.user.extendeduser, status=0)
             cnct.save()
         except Exception as e:
@@ -145,15 +147,74 @@ def apply(request):
         pass
     else:
         pass
-    return render(request, '/home')
+    return redirect('/posts/view_jobs')
 
 @is_user
 def view_jobs(request):
     if request.method == "GET":
         user = request.user
-        jobs = models.Connection.objects.all().filter(accept_user=user.extendeduser)
+        jobs = models.Connection.objects.all().filter(accept_user=user.extendeduser, accepted=False)
         #filterd_list = jobs.filter(user__exact=user.extendeduser)
     else:
         return redirect('/home')
         pass
     return render(request, 'posts/view_jobs.html', {"user": user, "jobs": jobs})
+
+@is_user
+def withdraw(request):
+    if request.method == "POST":
+        num = int(request.POST['num'])
+        cnct = models.Connection.objects.get(id=num)
+        cnct.post.applicants-=1
+        cnct.post.save()
+        cnct.delete()
+    else:
+        return redirect('/home')
+    return redirect('/posts/view_jobs')
+
+@is_user
+def statusChange(request):
+    if request.method == "POST":
+        num = int(request.POST['num'])
+        cnct = models.Connection.objects.get(id=num)
+        if request.POST['status'] == 'accept':
+            cnct.accepted = True
+        elif request.POST['status'] == 'reject':
+            cnct.post.applicants -= 1
+            cnct.post.save()
+            cnct.delete()
+        else:
+            pass
+    else:
+        pass
+    return redirect('/posts/view_jobs')
+@is_org
+def view_applicants(request,num):
+    if request.method == "GET":
+        post = models.Postings.objects.get(id=num)
+        applicants = models.Connection.objects.all().filter(post=post, status=0)
+        try:
+            return render(request, 'posts/view_applicants.html', {"applicants": applicants, "post": post})
+        except Exception as e:
+            print(e)
+            return redirect('/posts/manage_post')
+    else:
+        return redirect('/home')
+@is_org
+def status_applicant(request):
+    if request.method == "POST":
+        id = int(request.POST['num'])
+        status = request.POST['status']
+        cnct = models.Connection.objects.get(id=id)
+        if status == 'accept':
+            cnct.status = 2
+            cnct.save()
+        elif status == 'reject':
+            cnct.status = 1
+            cnct.save()
+        else:
+            pass
+    else:
+        return redirect('/home')
+    applicants = models.Connection.objects.all().filter(post=cnct.post, status=0)
+    return render(request, 'posts/view_applicants.html', {'applicants': applicants, 'post': cnct.post})
